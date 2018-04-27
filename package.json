@@ -1,0 +1,24 @@
+{
+  "name": "shooter",
+  "version": "0.0.1",
+  "description": "A shooter game",
+  "main": "src/index.js",
+  "author": "Andre Nanninga <ag.nanninga@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "start": "parcel ./index.html",
+    "build": "parcel build ./index.html"
+  },
+  "devDependencies": {
+    "parcel-bundler": "^1.7.1"
+  },
+  "dependencies": {
+    "javascript-state-machine": "^3.0.1",
+    "orbit-controls-es6": "^1.0.12",
+    "p-queue": "^2.4.1",
+    "state-machine": "^1.0.3",
+    "stats-js": "^1.0.0-alpha1",
+    "three": "^0.92.0"
+  }
+}
