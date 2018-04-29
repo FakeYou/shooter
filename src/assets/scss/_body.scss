@@ -1,0 +1,30 @@
+
+body, html {
+	padding: 0;
+	margin: 0;
+}
+
+body {
+	height: 100vh;
+}
+
+#stats {
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+.columns {
+	height: 100vh;
+
+	#game {
+		background-color: $bg-color;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	#debug {
+		background-color: $bg-color-dark;
+	}
+}

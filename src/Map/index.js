@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 
 import Tileset from './Tileset';
+import Collision from './Collision';
 import Ceiling from './Ceiling';
 import Floor from './Floor';
 import Wall from './Wall';
@@ -20,8 +21,15 @@ export default class Map extends THREE.Group {
 
 		this.tileset = new Tileset(game, definition.tilesets[0]);
 		this.queue = [];
+		this.bodies = [];
 
 		definition.layers.forEach((layer) => {
+			if (layer.name === 'collision') {
+				layer.chunks.forEach(chunk => {
+					this.queue.push(() => this.add(new Collision(game, chunk)));
+				});
+			}
+
 			if (layer.name === 'ceiling') {
 				layer.chunks.forEach(chunk => {
 					this.queue.push(() => this.add(new Ceiling(game, chunk)));

@@ -1,0 +1,10 @@
+#debug {
+	padding: $layout-spacing;
+	height: 100vh;
+
+	.btn {
+		.icon path {
+			fill: $primary-color;
+		}
+	}
+}

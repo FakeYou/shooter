@@ -2,7 +2,7 @@ import * as THREE from 'three';
 
 import { randomColor } from '../helpers';
 
-export default class Ceiling extends THREE.Group {
+export default class Collision extends THREE.Group {
 	constructor(game, definition) {
 		super();
 
@@ -12,23 +12,13 @@ export default class Ceiling extends THREE.Group {
 
 		this.position.set(definition.x + this.size / 2, 0, definition.y + this.size / 2);
 		
-		const grid = new THREE.GridHelper(this.size, 1, 0x0, randomColor());
-		grid.position.y = 1;
-		this.add(grid);
-
+		this.add(new THREE.GridHelper(this.size, 1, 0x0, randomColor()));
 		definition.data.forEach((gid, i) => {
 			if (gid === 0) {
 				return;
 			}
 
-			const tile = game.map.tileset.createTile(gid);
 			const offset = (this.size / 2) - 0.5;
-			tile.geometry.rotateX(Math.PI / -2);
-			tile.position.set(i % this.size - offset, 1, Math.floor(i / this.size) - offset);
-			tile.rotation.x = Math.PI;
-			tile.scale.set(1, 1, -1);
-
-			this.add(tile);
 		});
 	}
 }
