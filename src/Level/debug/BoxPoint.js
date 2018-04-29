@@ -1,9 +1,11 @@
 import * as THREE from 'three';
 
-import Point from '../Point';
-import Box from '../Box';
+import Box from '../../Intersect/Box';
+import Point from '../../Intersect/Point';
 
-export default class BoxPointExample extends THREE.Group {
+export default class BoxPointLevel extends THREE.Group {
+	static id = 'BoxPoint';
+
 	constructor(game) {
 		super();
 
@@ -11,7 +13,7 @@ export default class BoxPointExample extends THREE.Group {
 
 		this.angle = 0;
 		this.point = new Point(new THREE.Vector3(-0.25, 0, 0.2));
-		this.box = new Box(new THREE.Vector3(), new THREE.Vector3(1, 1, 1));
+		this.box = new Box(new THREE.Vector3(), new THREE.Vector3(2, 0.01, 2));
 
 		this.point.createHelper();
 		this.box.createHelper();
@@ -28,8 +30,8 @@ export default class BoxPointExample extends THREE.Group {
 
 		this.angle += 0.25 * Math.PI * delta;
 
-		this.point.position.x = Math.cos(this.angle * 2.2) * 0.5;
-		this.point.position.z = Math.sin(this.angle) * 0.75;
+		this.point.position.x = Math.cos(this.angle * 2.2) * 1.5;
+		this.point.position.z = Math.sin(this.angle) * 1.75;
 		this.point.updateHelper();
 
 		this.hit = this.box.intersectPoint(this.point);

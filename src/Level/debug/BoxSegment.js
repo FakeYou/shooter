@@ -1,9 +1,11 @@
 import * as THREE from 'three';
 
-import Segment from '../Segment';
-import Box from '../Box';
+import Box from '../../Intersect/Box';
+import Segment from '../../Intersect/Segment';
 
-export default class BoxPointExample extends THREE.Group {
+export default class BoxSegmentLevel extends THREE.Group {
+	static id = 'BoxSegment';
+
 	constructor(game) {
 		super();
 

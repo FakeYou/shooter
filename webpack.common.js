@@ -5,6 +5,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
 	entry: './index',
+	cache: true,
 	output: {
 		filename: '[name].bundle.js',
 		path: path.resolve(__dirname, 'dist'),
@@ -13,6 +14,7 @@ module.exports = {
 		rules: [
 			{
 				test: /\.js$/,
+				include: [path.resolve(__dirname, './src/'), path.resolve(__dirname, './index.js')],
 				exclude: /(node_modules|bower_components)/,
 				use: {
 					loader: 'babel-loader',
@@ -20,6 +22,7 @@ module.exports = {
 			},
 			{
 				test: /\.scss$/,
+				include: path.resolve(__dirname, 'src/assets/scss'),
 				use: [{
 					loader: 'style-loader', // creates style nodes from JS strings
 				}, {
@@ -30,6 +33,7 @@ module.exports = {
 			},
 			{
 				test: /\.(png|svg|jpg|gif)$/,
+				include: path.resolve(__dirname, 'src/assets'),
 				use: {
 					loader: 'file-loader',
 				},
@@ -37,9 +41,13 @@ module.exports = {
 		],
 	},
 	plugins: [
-		new CleanWebpackPlugin(['dist']),
 		new HtmlWebpackPlugin({
 			template: path.resolve(__dirname, 'index.html'),
+		}),
+
+		new webpack.DllReferencePlugin({
+			context: path.resolve(__dirname, 'src'),
+			manifest: require('./dist/vendor-manifest.json'),
 		}),
 	]
 };

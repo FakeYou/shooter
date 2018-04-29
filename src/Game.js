@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { observable, reaction } from 'mobx';
 import * as THREE from 'three';
 import Stats from 'stats-js';
 import OrbitControls from 'orbit-controls-es6';
@@ -12,18 +13,32 @@ import Loader from './Loader';
 import Map from './Map';
 import Player from './entities/Player';
 
-import BoxPointExample from './Intersect/examples/BoxPointExample';
-import BoxSegmentExample from './Intersect/examples/BoxSegmentExample';
-import BoxBoxExample from './Intersect/examples/BoxBoxExample';
-import SweptBoxExample from './Intersect/examples/SweptBoxExample';
+import BoxBoxLevel from './Level/debug/BoxBox';
+import BoxPointLevel from './Level/debug/BoxPoint';
+import BoxSegmentLevel from './Level/debug/BoxSegment';
+import SweptBoxLevel from './Level/debug/SweptBox';
 
 import devTileset from './assets/images/dev.png';
 
 export default class Game {
+
+	static Levels = {
+		BoxBox: BoxBoxLevel,
+		BoxPoint: BoxPointLevel,
+		BoxSegment: BoxSegmentLevel,
+		SweptBox: SweptBoxLevel,
+	};
+
+	@observable pixelScale = 2;
+	@observable isPlaying = true;
+	@observable level = 'BoxBox';
+
 	constructor() {
 		this.width = 960;
 		this.height = 720;
-		this.scale = 1;
+
+		reaction(() => this.pixelScale, this.onPixelScaleChange);
+		reaction(() => this.level, this.onLevelChange);
 
 		this.scene = new THREE.Scene();
 
@@ -42,7 +57,7 @@ export default class Game {
 		this.loader.loadTexture('tileset-dev', devTileset);
 		
 		this.renderer = new THREE.WebGLRenderer({ antialias: false });
-		this.renderer.setPixelRatio(window.devicePixelRatio / this.scale);
+		this.renderer.setPixelRatio(window.devicePixelRatio / this.pixelScale);
 		this.renderer.setSize(this.width, this.height);
 		this.renderer.setClearColor(0xEAE0E2);
 
@@ -50,8 +65,8 @@ export default class Game {
 
 		this.scene.add(new THREE.AxesHelper(8));
 
-		this.example = new SweptBoxExample(this);
-		this.scene.add(this.example);
+		this.currentLevel = new Game.Levels[this.level](this);
+		this.scene.add(this.currentLevel);
 
 		document.getElementById('game').appendChild(this.renderer.domElement);
 		document.body.appendChild(this.stats.domElement);
@@ -70,7 +85,7 @@ export default class Game {
 		this.state.elapsed = this.clock.getElapsedTime();
 
 		if (this.state.isPlaying) {
-			this.example.update(state.delta, state.elapsed);
+			this.currentLevel.update(state.delta, state.elapsed);
 		}
 
 		// this.map.update(delta, elapsed);
@@ -81,6 +96,17 @@ export default class Game {
 		this.stats.end();
 		
 		this.animationFrame = requestAnimationFrame(this.update);
+	}
+
+	onPixelScaleChange = (pixelScale) => {
+		this.renderer.setPixelRatio(window.devicePixelRatio / pixelScale);
+	}
+
+	onLevelChange = (level) => {
+		this.scene.remove(this.currentLevel);
+
+		this.currentLevel = new Game.Levels[level](this);
+		this.scene.add(this.currentLevel);
 	}
 }
 

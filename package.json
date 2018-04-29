@@ -8,8 +8,9 @@
   "private": true,
   "sideEffects": false,
   "scripts": {
-    "start": "webpack-dev-server --config webpack.dev.js --hot",
-    "build": "webpack --config webpack.prod.js"
+    "start": "webpack-dev-server --config webpack.dev.js",
+    "build": "webpack --config webpack.prod.js",
+    "vendor": "webpack --config webpack.vendor.js"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",

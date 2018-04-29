@@ -1,9 +1,11 @@
 import * as THREE from 'three';
 
-import Point from '../Point';
-import Box from '../Box';
+import Box from '../../Intersect/Box';
+import Point from '../../Intersect/Point';
 
-export default class BoxPointExample extends THREE.Group {
+export default class SweptBoxLevel extends THREE.Group {
+	static id = 'SweptBox';
+
 	constructor(game) {
 		super();
 
@@ -13,7 +15,7 @@ export default class BoxPointExample extends THREE.Group {
 
 		this.angle = 0;
 		this.delta = new THREE.Vector3();
-		this.velocity = new THREE.Vector3(12, 0, 9.4);
+		this.velocity = new THREE.Vector3(3, 0, 2.4);
 
 		this.box = new Box(new THREE.Vector3(), new THREE.Vector3(0.5, 0.01, 0.5));
 
