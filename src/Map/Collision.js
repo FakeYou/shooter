@@ -3,10 +3,11 @@ import * as THREE from 'three';
 import { randomColor } from '../helpers';
 
 export default class Collision extends THREE.Group {
-	constructor(game, definition) {
+	constructor(game, map, definition) {
 		super();
 
 		this.game = game;
+		this.map = map;
 		this.definition = definition;
 		this.size = definition.width;
 

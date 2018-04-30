@@ -53,10 +53,10 @@ export default class Debug extends Component {
 					</div>
 				</div>
 
-				<div class="form-group horizontal">
-					<label class="form-label">Pixel scale</label>
+				<div className="form-group horizontal">
+					<label className="form-label">Pixel scale</label>
 					<input
-						class="form-input"
+						className="form-input"
 						placeholder="1"
 						min={1}
 						max={10}
@@ -73,6 +73,7 @@ export default class Debug extends Component {
 						selected={game.level}
 						onChange={(e) => game.level = e.target.value}
 					>
+						<option value="Playground">Playground</option>
 						<optgroup label="Debug">
 							<option value="BoxBox">BoxBox</option>
 							<option value="BoxPoint">BoxPoint</option>

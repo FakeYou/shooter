@@ -13,6 +13,7 @@ import Loader from './Loader';
 import Map from './Map';
 import Player from './entities/Player';
 
+import PlaygroundLevel from './Level/Playground';
 import BoxBoxLevel from './Level/debug/BoxBox';
 import BoxPointLevel from './Level/debug/BoxPoint';
 import BoxSegmentLevel from './Level/debug/BoxSegment';
@@ -23,6 +24,7 @@ import devTileset from './assets/images/dev.png';
 export default class Game {
 
 	static Levels = {
+		Playground: PlaygroundLevel,
 		BoxBox: BoxBoxLevel,
 		BoxPoint: BoxPointLevel,
 		BoxSegment: BoxSegmentLevel,
@@ -31,7 +33,7 @@ export default class Game {
 
 	@observable pixelScale = 2;
 	@observable isPlaying = true;
-	@observable level = 'BoxBox';
+	@observable level = 'Playground';
 
 	constructor() {
 		this.width = 960;
@@ -87,9 +89,6 @@ export default class Game {
 		if (this.state.isPlaying) {
 			this.currentLevel.update(state.delta, state.elapsed);
 		}
-
-		// this.map.update(delta, elapsed);
-		// this.player.update(delta, elapsed);
 
 		this.renderer.render(this.scene, this.camera);
 

@@ -3,10 +3,11 @@ import * as THREE from 'three';
 import { randomColor } from '../helpers';
 
 export default class Ceiling extends THREE.Group {
-	constructor(game, definition) {
+	constructor(game, map, definition) {
 		super();
 
 		this.game = game;
+		this.map = map;
 		this.definition = definition;
 		this.size = definition.width;
 
@@ -21,7 +22,7 @@ export default class Ceiling extends THREE.Group {
 				return;
 			}
 
-			const tile = game.map.tileset.createTile(gid);
+			const tile = map.tileset.createTile(gid);
 			const offset = (this.size / 2) - 0.5;
 			tile.geometry.rotateX(Math.PI / -2);
 			tile.position.set(i % this.size - offset, 1, Math.floor(i / this.size) - offset);

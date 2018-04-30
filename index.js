@@ -15,7 +15,6 @@ if (module.hot) {
 		const Game = require('./src/Game').default;
 		window.game = new Game();
 
-		document.getElementById('debug').remove();
 		ReactDOM.render(<Debug game={window.game} />, document.getElementById('debug'));
 	});
 }

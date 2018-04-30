@@ -3,10 +3,11 @@ import * as THREE from 'three';
 import { randomColor } from '../helpers';
 
 export default class Wall extends THREE.Group {
-	constructor(game, definition) {
+	constructor(game, map, definition) {
 		super();
 
 		this.game = game;
+		this.map = map;
 		this.definition = definition;
 		this.size = definition.width;
 
@@ -16,7 +17,7 @@ export default class Wall extends THREE.Group {
 		
 		this.position.set(definition.x + this.size / 2, 0, definition.y + this.size / 2);
 		const data = definition.data;
-		const tileset = game.map.tileset;
+		const tileset = this.map.tileset;
 
 		const size = this.size;
 		const total = size * size;

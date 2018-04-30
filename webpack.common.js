@@ -5,10 +5,10 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
 	entry: './index',
-	cache: true,
 	output: {
 		filename: '[name].bundle.js',
 		path: path.resolve(__dirname, 'dist'),
+		publicPath: '/',
 	},
 	module: {
 		rules: [
@@ -42,12 +42,8 @@ module.exports = {
 	},
 	plugins: [
 		new HtmlWebpackPlugin({
+			inject: true,
 			template: path.resolve(__dirname, 'index.html'),
-		}),
-
-		new webpack.DllReferencePlugin({
-			context: path.resolve(__dirname, 'src'),
-			manifest: require('./dist/vendor-manifest.json'),
 		}),
 	]
 };
