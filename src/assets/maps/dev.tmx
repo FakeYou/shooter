@@ -6,6 +6,9 @@
  <tileset firstgid="17" name="collision" tilewidth="16" tileheight="16" tilecount="8" columns="8">
   <image source="../images/collision.png" width="128" height="16"/>
  </tileset>
+ <tileset firstgid="25" name="lights" tilewidth="16" tileheight="16" tilecount="320" columns="16">
+  <image source="../images/lights.png" width="256" height="320"/>
+ </tileset>
  <layer name="floor" width="20" height="20">
   <data encoding="csv">
    <chunk x="-8" y="-16" width="8" height="8">
@@ -31,9 +34,9 @@
    <chunk x="-8" y="-8" width="8" height="8">
 0,2,0,3,3,0,3,3,
 2,2,2,3,3,3,3,3,
-2,0,2,3,3,3,0,0,
-0,0,2,3,3,3,0,0,
-2,2,2,3,3,3,0,0,
+2,0,2,26,26,3,0,0,
+0,0,2,26,26,3,0,0,
+2,2,2,26,26,3,0,0,
 2,2,2,3,3,3,3,3,
 0,0,2,0,3,3,3,3,
 0,0,2,0,0,0,0,0
@@ -170,7 +173,7 @@
 </chunk>
   </data>
  </layer>
- <layer name="wall" width="20" height="20">
+ <layer name="wall" width="20" height="20" visible="0">
   <data encoding="csv">
    <chunk x="-8" y="-24" width="8" height="8">
 0,0,0,0,0,0,0,0,
@@ -294,7 +297,7 @@
 </chunk>
   </data>
  </layer>
- <layer name="ceiling" width="20" height="20" opacity="0.8">
+ <layer name="ceiling" width="20" height="20" visible="0" opacity="0.8">
   <data encoding="csv">
    <chunk x="-8" y="-16" width="8" height="8">
 0,0,0,0,0,0,0,0,
@@ -358,7 +361,7 @@
 </chunk>
   </data>
  </layer>
- <layer name="collision" width="20" height="20">
+ <layer name="collision" width="20" height="20" visible="0">
   <data encoding="csv">
    <chunk x="-8" y="-24" width="8" height="8">
 0,0,0,0,0,0,0,0,
@@ -442,7 +445,7 @@
 </chunk>
   </data>
  </layer>
- <objectgroup name="billboards">
+ <objectgroup name="billboards" visible="0">
   <object id="1" gid="10" x="49" y="128.5" width="16" height="16"/>
   <object id="2" gid="10" x="73.4545" y="94.3636" width="16" height="16"/>
   <object id="3" gid="10" x="104.182" y="95.0909" width="16" height="16"/>
@@ -476,9 +479,9 @@
   <object id="36" gid="13" x="226.545" y="112.364" width="16" height="16"/>
   <object id="37" gid="13" x="143.818" y="60.7273" width="16" height="16"/>
   <object id="38" gid="13" x="92.9091" y="44" width="16" height="16"/>
-  <object id="39" gid="13" x="154.727" y="172.364" width="16" height="16"/>
+  <object id="39" gid="13" x="105.454" y="165.455" width="16" height="16"/>
   <object id="40" gid="13" x="176" y="156.727" width="16" height="16"/>
-  <object id="42" gid="13" x="160.363" y="176" width="16" height="16">
+  <object id="42" gid="13" x="142.657" y="162.685" width="16" height="16" rotation="-1449.93">
    <properties>
     <property name="fixed" type="bool" value="true"/>
    </properties>
@@ -486,11 +489,35 @@
   <object id="43" gid="13" x="212.364" y="131.455" width="16" height="16"/>
   <object id="44" gid="13" x="165.818" y="148.364" width="16" height="16"/>
   <object id="45" gid="13" x="184.545" y="133.091" width="16" height="16"/>
-  <object id="46" gid="13" x="200.182" y="117.818" width="16" height="16"/>
+  <object id="46" gid="13" x="192" y="96.1816" width="16" height="16"/>
   <object id="47" gid="14" x="216.364" y="165.455" width="16" height="16"/>
   <object id="48" gid="14" x="232" y="151.455" width="16" height="16"/>
   <object id="49" gid="14" x="184.545" y="181.636" width="16" height="16"/>
   <object id="50" gid="14" x="233.091" y="187.273" width="16" height="16"/>
   <object id="51" gid="14" x="256" y="154.545" width="16" height="16"/>
  </objectgroup>
+ <layer name="lights" width="20" height="20" visible="0">
+  <data encoding="csv">
+   <chunk x="-16" y="-8" width="8" height="8">
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,145,
+0,0,0,0,0,0,0,129,
+0,0,0,0,0,0,113,113,
+0,0,0,0,0,0,113,113,
+0,0,0,0,0,0,0,129,
+0,0,0,0,0,145,145,145,
+0,0,0,0,0,0,0,0
+</chunk>
+   <chunk x="-8" y="-8" width="8" height="8">
+0,0,0,0,0,0,0,0,
+145,145,0,0,0,0,0,0,
+129,145,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+129,145,0,0,0,0,0,0,
+129,145,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0
+</chunk>
+  </data>
+ </layer>
 </map>

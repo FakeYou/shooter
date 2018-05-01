@@ -20,6 +20,8 @@ import BoxSegmentLevel from './Level/debug/BoxSegment';
 import SweptBoxLevel from './Level/debug/SweptBox';
 
 import devTileset from './assets/images/dev.png';
+import collisionTileset from './assets/images/collision.png';
+import lightsTileset from './assets/images/lights.png';
 
 export default class Game {
 
@@ -57,6 +59,8 @@ export default class Game {
 
 		this.loader = new Loader();
 		this.loader.loadTexture('tileset-dev', devTileset);
+		this.loader.loadTexture('tileset-collision', collisionTileset);
+		this.loader.loadTexture('tileset-lights', lightsTileset);
 		
 		this.renderer = new THREE.WebGLRenderer({ antialias: false });
 		this.renderer.setPixelRatio(window.devicePixelRatio / this.pixelScale);

@@ -14,7 +14,7 @@ export default class Map extends THREE.Group {
 		this.game = game;
 		this.definition = this.preprocess(definition);
 
-		this.tileset = new Tileset(game, definition.tilesets[0]);
+		this.tileset = new Tileset(game, definition.tilesets);
 		this.queue = [];
 		this.bodies = [];
 

@@ -3,38 +3,42 @@ import * as THREE from 'three';
 const PADDING = 0.001;
 
 export default class Tileset {
-	constructor(game, definition) {
+	constructor(game, tilesets) {
 		this.game = game;
-		this.definition = definition;
+		this.tilesets = tilesets;
 
-		this.texture = game.loader.assets[`tileset-${definition.name}`];
 		this.tiles = [];
 
-		const material = new THREE.MeshBasicMaterial({
-			map: this.texture,
-			vertexColors: THREE.FaceColors,
-			alphaTest: 0.5,
-		});
+		tilesets.forEach(tileset => {
+			console.log(tileset);
+			this.texture = game.loader.assets[`tileset-${tileset.name}`];
+			
+			const columns = tileset.columns;
+			const rows = tileset.tilecount / tileset.columns;
 
-		const columns = definition.columns;
-		const rows = definition.tilecount / definition.columns;
-
-		const size = new THREE.Vector2(
-			(1 / columns) - (PADDING * 2),
-			(-1 / rows) + (PADDING * 2)
-		);
-
-		for (let i = 0; i < definition.tilecount; i++) {
-			const x = i % columns;
-			const y = Math.floor(i / columns);
-
-			const uv = new THREE.Vector2(
-				((x % columns) / columns) + PADDING,
-				(1 - ((y + 1) / rows)) + PADDING
+			const size = new THREE.Vector2(
+				(1 / columns) - (PADDING * 2),
+				(-1 / rows) + (PADDING * 2)
 			);
 
-			this.tiles[definition.firstgid + i] = { material, uv, size };
-		}
+			const material = new THREE.MeshBasicMaterial({
+				map: this.texture,
+				vertexColors: THREE.FaceColors,
+				alphaTest: 0.5,
+			});
+
+			for (let i = 0; i < tileset.tilecount; i++) {
+				const x = i % columns;
+				const y = Math.floor(i / columns);
+	
+				const uv = new THREE.Vector2(
+					((x % columns) / columns) + PADDING,
+					(1 - ((y + 1) / rows)) + PADDING
+				);
+	
+				this.tiles[tileset.firstgid + i] = { material, uv, size };
+			}
+		});
 	}
 
 	getTile(index) {
