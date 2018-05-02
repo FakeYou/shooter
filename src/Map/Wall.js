@@ -18,6 +18,7 @@ export default class Wall extends THREE.Group {
 		this.position.set(definition.x + this.size / 2, 0, definition.y + this.size / 2);
 		const data = definition.data;
 		const tileset = this.map.tileset;
+		const lights = this.map.lights;
 
 		const size = this.size;
 		const total = size * size;
@@ -28,6 +29,8 @@ export default class Wall extends THREE.Group {
 			}
 
 			const geometry = new THREE.Geometry();
+			const x = definition.x + i % this.size;
+			const y = definition.y + Math.floor(i / this.size);
 
 			// Add walls for each direction. First we check if the neighbouring tile in a direction is
 			// solid or not. If it is not solid then we need to place a woll here. Because each chunk
@@ -35,6 +38,8 @@ export default class Wall extends THREE.Group {
 			// safe we always render the outer wall of a chunk.
 			if (i <= (size - 1) || (i - size >= 0 && data[i - size] === 0)) {
 				const north = tileset.createTile(gid);
+				const color = lights.getColor(x, y - 1);
+				north.geometry.faces.forEach(face => face.color = color);
 				north.geometry.rotateY(Math.PI);
 				north.geometry.translate(0, 0, -0.5);
 				geometry.merge(north.geometry);
@@ -42,6 +47,8 @@ export default class Wall extends THREE.Group {
 
 			if (i % size === 0 || (i - 1 >= 0 && data[i - 1] === 0)) {
 				const west = tileset.createTile(gid);
+				const color = lights.getColor(x - 1, y);
+				west.geometry.faces.forEach(face => face.color = color);
 				west.geometry.rotateY(Math.PI / -2);
 				west.geometry.translate(-0.5, 0, 0);
 				geometry.merge(west.geometry);
@@ -49,12 +56,16 @@ export default class Wall extends THREE.Group {
 
 			if (i >= (total - size) || (i + size <= (total - 1) && data[i + size] === 0)) {
 				const south = tileset.createTile(gid);
+				const color = lights.getColor(x, y + 1);
+				south.geometry.faces.forEach(face => face.color = color);
 				south.geometry.translate(0, 0, 0.5);
 				geometry.merge(south.geometry);
 			}
 
 			if (i % size === (size - 1) || (i + 1 <= (total - 1) && data[i + 1] === 0)) {
 				const east = tileset.createTile(gid);
+				const color = lights.getColor(x + 1, y);
+				east.geometry.faces.forEach(face => face.color = color);
 				east.geometry.rotateY(Math.PI / 2);
 				east.geometry.translate(0.5, 0, 0);
 				geometry.merge(east.geometry);

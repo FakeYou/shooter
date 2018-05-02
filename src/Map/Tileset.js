@@ -10,8 +10,7 @@ export default class Tileset {
 		this.tiles = [];
 
 		tilesets.forEach(tileset => {
-			console.log(tileset);
-			this.texture = game.loader.assets[`tileset-${tileset.name}`];
+			const texture = game.loader.assets[`tileset-${tileset.name}`];
 			
 			const columns = tileset.columns;
 			const rows = tileset.tilecount / tileset.columns;
@@ -22,7 +21,7 @@ export default class Tileset {
 			);
 
 			const material = new THREE.MeshBasicMaterial({
-				map: this.texture,
+				map: texture,
 				vertexColors: THREE.FaceColors,
 				alphaTest: 0.5,
 			});

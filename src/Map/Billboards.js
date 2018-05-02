@@ -10,19 +10,17 @@ export default class Billboards extends THREE.Group {
 
 		definition.objects.forEach(object => {
 			const tile = this.map.tileset.createTile(object.gid);
-			tile.position.set(
-				object.x / this.map.definition.tilewidth,
-				0.5,
-				object.y / this.map.definition.tileheight,
-			);
+			const x = object.x / this.map.definition.tilewidth;
+			const y = object.y / this.map.definition.tileheight;
 
+			const color = this.map.lights.getColor(Math.floor(x), Math.floor(y));
+			
+			tile.geometry.faces.forEach(face => face.color = color);
+			tile.position.set(x, 0.5, y);
 			tile.definition = object;
 
 			this.add(tile);
 		});
-
-
-		console.log(this.definition);
 	}
 
 	update() {

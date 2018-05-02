@@ -19,8 +19,14 @@ export default class Floor extends THREE.Group {
 				return;
 			}
 
+			const x = definition.x + i % this.size;
+			const y = definition.y + Math.floor(i / this.size);
+
+			const color = this.map.lights.getColor(x, y);
 			const tile = this.map.tileset.createTile(gid);
 			const offset = (this.size / 2) - 0.5;
+
+			tile.geometry.faces.forEach(face => face.color = color);
 			tile.geometry.rotateX(Math.PI / -2);
 			tile.position.set(i % this.size - offset, 0, Math.floor(i / this.size) - offset);
 

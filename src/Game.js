@@ -57,11 +57,11 @@ export default class Game {
 		this.clock = new THREE.Clock(true);
 		this.stats = new Stats();
 
-		this.loader = new Loader();
+		this.loader = new Loader(this, this.init);
 		this.loader.loadTexture('tileset-dev', devTileset);
 		this.loader.loadTexture('tileset-collision', collisionTileset);
 		this.loader.loadTexture('tileset-lights', lightsTileset);
-		
+
 		this.renderer = new THREE.WebGLRenderer({ antialias: false });
 		this.renderer.setPixelRatio(window.devicePixelRatio / this.pixelScale);
 		this.renderer.setSize(this.width, this.height);
@@ -71,9 +71,6 @@ export default class Game {
 
 		this.scene.add(new THREE.AxesHelper(8));
 
-		this.currentLevel = new Game.Levels[this.level](this);
-		this.scene.add(this.currentLevel);
-
 		document.getElementById('game').appendChild(this.renderer.domElement);
 		document.body.appendChild(this.stats.domElement);
 		ReactDOM.render(<Debug />, document.getElementById('debug'));
@@ -81,6 +78,13 @@ export default class Game {
 		this.update = this.update.bind(this);
 
 		this.update();
+	}
+
+	init = () => {
+		console.log('init');
+		this.state.isPlaying = true;
+		this.currentLevel = new Game.Levels[this.level](this);
+		this.scene.add(this.currentLevel);
 	}
 
 	update() {

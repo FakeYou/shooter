@@ -1,7 +1,9 @@
 import * as THREE from 'three';
+import { sortBy } from 'lodash';
 
 import Tileset from './Tileset';
 import Billboards from './Billboards';
+import Lights from './Lights';
 import Collision from './Collision';
 import Ceiling from './Ceiling';
 import Floor from './Floor';
@@ -18,7 +20,17 @@ export default class Map extends THREE.Group {
 		this.queue = [];
 		this.bodies = [];
 
-		definition.layers.forEach((layer) => {
+		// Ensure that metadata layers (lights, collision) are processed first
+		const layers = sortBy(this.definition.layers, (layer) => {
+			const index = ['collision', 'lights'].indexOf(layer.name);
+			return index > -1 ? index : Number.MAX_VALUE;
+		});
+
+		layers.forEach((layer) => {
+			if (layer.name === 'lights') {
+				this.lights = new Lights(game, this, layer);
+			}
+
 			if (layer.name === 'collision') {
 				layer.chunks.forEach(chunk => {
 					this.queue.push(() => this.add(new Collision(game, this, chunk)));
@@ -46,7 +58,6 @@ export default class Map extends THREE.Group {
 			if (layer.name === 'billboards') {
 				this.billboards = new Billboards(game, this, layer);
 				this.add(this.billboards);
-				// this.queue.push(() => this.add(new Billboards(game, this, layer)));
 			}
 		});
 	}

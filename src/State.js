@@ -13,7 +13,7 @@ class State {
 		SweptBox: SweptBoxLevel,
 	};
 
-	@observable isPlaying = true;
+	@observable isPlaying = false;
 	@observable frame = 0;
 	@observable delta = 0;
 	@observable elapsed = 0;
