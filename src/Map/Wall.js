@@ -72,7 +72,7 @@ export default class Wall extends THREE.Group {
 			}
 
 			const offset = size / 2 - 0.5;
-			const mesh = new THREE.Mesh(geometry, tileset.getTile(1).material);
+			const mesh = new THREE.Mesh(geometry, tileset.getTile(gid).material);
 			mesh.position.set(i % size - offset, 0.5, Math.floor(i / size) - offset);
 
 			this.add(mesh);
