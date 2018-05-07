@@ -4,7 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
-	entry: './index',
+	entry: './index.js',
 	output: {
 		filename: '[name].bundle.js',
 		path: path.resolve(__dirname, 'dist'),
@@ -38,6 +38,14 @@ module.exports = {
 					loader: 'file-loader',
 				},
 			},
+			{
+				type: 'javascript/auto',
+				test: /\.json$/,
+				include: path.resolve(__dirname, 'src/assets'),
+				use: {
+					loader: 'file-loader'
+				}
+			}
 		],
 	},
 	plugins: [

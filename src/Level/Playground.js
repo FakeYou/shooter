@@ -1,7 +1,6 @@
 import * as THREE from 'three';
 
 import Map from '../Map';
-import definintion from '../assets/maps/dev';
 
 export default class Playground extends THREE.Group {
 	constructor(game) {
@@ -9,7 +8,7 @@ export default class Playground extends THREE.Group {
 
 		this.game = game;
 
-		this.map = new Map(game, definintion);
+		this.map = new Map(game, game.loader.assets['map-playground']);
 		this.add(this.map);
 	}
 

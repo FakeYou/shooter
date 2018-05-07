@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { sortBy } from 'lodash';
+import { isArray, sortBy } from 'lodash';
 
 import Tileset from './Tileset';
 import Billboards from './Billboards';
@@ -72,15 +72,12 @@ export default class Map extends THREE.Group {
 	}
 
 	preprocess(definition) {
-
 		definition.layers.forEach(layer => {
 			if (layer.type === 'objectgroup') {
-
 				layer.objects.forEach(object => {
 					const properties = {};
-					// object.x += definition.tilewidth / 2;
 
-					if (object.properties) {
+					if (isArray(object.properties)) {
 						object.properties.forEach(property => {
 							properties[property.name] = property.value;
 						});
@@ -90,6 +87,10 @@ export default class Map extends THREE.Group {
 				});
 			}
 		});
+
+		definition.tilesets.forEach(tileset => {
+			
+		})
 
 		return definition;
 	}

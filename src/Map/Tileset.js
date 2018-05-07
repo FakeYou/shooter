@@ -56,12 +56,7 @@ export default class Tileset {
 		const isFlippedDiagonal = !!(index & Tileset.FLAG_FLIPPED_DIAGONAL);
 
 		const gid = index & ~(Tileset.FLAG_FLIPPED_HORIZONTAL | Tileset.FLAG_FLIPPED_VERTICAL | Tileset.FLAG_FLIPPED_DIAGONAL);
-
 		const tile = this.getTile(gid);
-
-		if (gid !== index) {
-			console.log({ index, isFlippedDiagonal, isFlippedHorizontal, isFlippedVertical });
-		}
 
 		const geometry = new THREE.PlaneGeometry(1, 1);
 		geometry.faceVertexUvs[0].forEach(face => {
