@@ -29,18 +29,40 @@ export default class Billboards extends THREE.Group {
 
 	update() {
 		const camera = this.game.camera;
+
+		const tilewidth = this.map.definition.tilewidth;
+		const tileheight = this.map.definition.tileheight;
 		
 		this.children.forEach((child, i) => {
-			if (child.definition.properties.fixed) {
-				child.rotation.y = -child.definition.rotation * (Math.PI / 180);
+			const look = new THREE.Vector3(0, camera.position.y, 0);
+			look.y -= child.position.y;
+			look.sub(camera.position).multiplyScalar(-1);
+			child.lookAt(look);
+
+			if (child.definition.properties.fixed === 'vertical') {
+				child.rotation.y = 0;
 			}
-			else {
-				const look = new THREE.Vector3(0, camera.position.y, 0);
-				look.y -= child.position.y;
-				look.sub(camera.position).multiplyScalar(-1);
-				child.lookAt(look);
+			else if (child.definition.properties.fixed === 'horizontal') {
+				child.rotation.y = camera.position.x > child.position.x ? Math.PI / 2 : Math.PI / -2;
 			}
 
+			if (child.definition.type === 'door') {
+				const distance = child.position.clone().distanceTo(camera.position);
+				const x = child.definition.x / tilewidth + 0.5;
+				const y = child.definition.y / tileheight - 0.5;
+				const color = this.map.lights.getColor(Math.floor(x), Math.floor(y));
+
+				if (distance < 2) {
+					const replacement = this.map.tileset.createTile(354);
+					child.geometry = replacement.geometry;
+					child.geometry.faces.forEach(face => face.color = color);
+				}
+				else {
+					const replacement = this.map.tileset.createTile(353);
+					child.geometry = replacement.geometry;
+					child.geometry.faces.forEach(face => face.color = color);
+				}
+			}
 		});
 	}
 }
