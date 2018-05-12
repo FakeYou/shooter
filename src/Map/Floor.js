@@ -13,7 +13,8 @@ export default class Floor extends THREE.Group {
 
 		this.position.set(definition.x + this.size / 2, 0, definition.y + this.size / 2);
 		
-		this.add(new THREE.GridHelper(this.size, 1, 0x0, randomColor()));
+		// this.add(new THREE.GridHelper(this.size, 1, 0x0, randomColor()));
+
 		definition.data.forEach((gid, i) => {
 			if (gid === 0) {
 				return;

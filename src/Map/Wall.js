@@ -11,9 +11,9 @@ export default class Wall extends THREE.Group {
 		this.definition = definition;
 		this.size = definition.width;
 
-		const grid = new THREE.GridHelper(this.size, 1, 0x0, randomColor());
-		grid.position.y = 0.5;
-		this.add(grid);
+		// const grid = new THREE.GridHelper(this.size, 1, 0x0, randomColor());
+		// grid.position.y = 0.5;
+		// this.add(grid);
 		
 		this.position.set(definition.x + this.size / 2, 0, definition.y + this.size / 2);
 		const data = definition.data;

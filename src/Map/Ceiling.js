@@ -13,9 +13,9 @@ export default class Ceiling extends THREE.Group {
 
 		this.position.set(definition.x + this.size / 2, 0, definition.y + this.size / 2);
 		
-		const grid = new THREE.GridHelper(this.size, 1, 0x0, randomColor());
-		grid.position.y = 1;
-		this.add(grid);
+		// const grid = new THREE.GridHelper(this.size, 1, 0x0, randomColor());
+		// grid.position.y = 1;
+		// this.add(grid);
 
 		definition.data.forEach((gid, i) => {
 			if (gid === 0) {

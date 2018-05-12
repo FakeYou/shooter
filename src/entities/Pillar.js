@@ -5,7 +5,6 @@ import Animation from '../Animation';
 
 export default class Pillar extends Entity {
 	static config = {
-		static: false,
 		animations: {
 			flame: new Animation([513, 514, 515, 516, 517, 518, 519, 520], true),
 		},

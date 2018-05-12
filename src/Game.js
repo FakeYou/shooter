@@ -30,7 +30,7 @@ export default class Game {
 		this.loader = new Loader(this, this.init);
 
 		this.renderer = new THREE.WebGLRenderer({ antialias: false });
-		this.renderer.setPixelRatio(1);
+		this.renderer.setPixelRatio(0.5);
 		this.renderer.setSize(this.width, this.height);
 		this.renderer.setClearColor(0xEAE0E2);
 		domElement.appendChild(this.renderer.domElement);

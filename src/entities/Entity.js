@@ -5,7 +5,6 @@ import Animation from '../Animation';
 
 export default class Entity extends THREE.Group {
 	static config = {
-		static: true,
 		animations: {},
 	}
 
@@ -35,10 +34,6 @@ export default class Entity extends THREE.Group {
 	}
 
 	update(delta, elapsed) {
-		if (this.config.static) {
-			return;
-		}
-
 		this.animation.update(delta, elapsed);
 		this.map.tileset.updateTile(this.tile, this.animation.frame);
 

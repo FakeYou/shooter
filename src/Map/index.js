@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import { isArray, sortBy } from 'lodash';
 
 import Tileset from './Tileset';
-import Billboards from './Billboards';
+import Entities from './Entities';
 import Lights from './Lights';
 import Collision from './Collision';
 import Ceiling from './Ceiling';
@@ -55,9 +55,9 @@ export default class Map extends THREE.Group {
 				});
 			}
 
-			if (layer.name === 'billboards') {
-				this.billboards = new Billboards(game, this, layer);
-				this.add(this.billboards);
+			if (layer.name === 'entities') {
+				this.entities = new Entities(game, this, layer);
+				this.add(this.entities);
 			}
 		});
 	}
@@ -68,7 +68,7 @@ export default class Map extends THREE.Group {
 			task();
 		}
 
-		this.billboards.update(delta, elapsed);
+		this.entities.update(delta, elapsed);
 	}
 
 	preprocess(definition) {
@@ -87,10 +87,6 @@ export default class Map extends THREE.Group {
 				});
 			}
 		});
-
-		definition.tilesets.forEach(tileset => {
-			
-		})
 
 		return definition;
 	}
