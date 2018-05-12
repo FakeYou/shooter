@@ -7,6 +7,11 @@ export default class Tileset {
 	static FLAG_FLIPPED_VERTICAL   = 0x40000000;
 	static FLAG_FLIPPED_DIAGONAL   = 0x20000000;
 
+	static CORNERS = [
+		[{ x: 0, y: 1 }, { x: 0, y: 0 }, { x: 1, y: 1 }],
+		[{ x: 0, y: 0 }, { x: 1, y: 0 }, { x: 1, y: 1 }],
+	]
+
 	constructor(game, tilesets) {
 		this.game = game;
 		this.tilesets = tilesets;
@@ -59,24 +64,37 @@ export default class Tileset {
 		const tile = this.getTile(gid);
 
 		const geometry = new THREE.PlaneGeometry(1, 1);
-		geometry.faceVertexUvs[0].forEach(face => {
-			face.forEach(corner => {
+		const mesh = new THREE.Mesh(geometry, tile.material);
+
+		return this.updateTile(mesh, index);
+	}
+
+	updateTile(mesh, index) {
+		const isFlippedHorizontal = !!(index & Tileset.FLAG_FLIPPED_HORIZONTAL);
+		const isFlippedVertical = !!(index & Tileset.FLAG_FLIPPED_VERTICAL);
+		const isFlippedDiagonal = !!(index & Tileset.FLAG_FLIPPED_DIAGONAL);
+
+		const gid = index & ~(Tileset.FLAG_FLIPPED_HORIZONTAL | Tileset.FLAG_FLIPPED_VERTICAL | Tileset.FLAG_FLIPPED_DIAGONAL);
+		const tile = this.getTile(gid);
+
+		mesh.geometry.faceVertexUvs[0].forEach((face, i) => {
+			face.forEach((corner, j) => {
 				let signX;
 				let signY;
 
 				if (isFlippedDiagonal) {
 					if (isFlippedHorizontal === isFlippedVertical) {
-						signX = isFlippedHorizontal ? corner.y : (1 - corner.y);
-						signY = isFlippedVertical ? corner.x : (1 - corner.x);
+						signX = isFlippedHorizontal ? Tileset.CORNERS[i][j].y : (1 - Tileset.CORNERS[i][j].y);
+						signY = isFlippedVertical ? Tileset.CORNERS[i][j].x : (1 - Tileset.CORNERS[i][j].x);
 					}
 					else {
-						signX = isFlippedHorizontal ? (1 - corner.y) : corner.y;
-						signY = isFlippedVertical ? (1 - corner.x) : corner.x;
+						signX = isFlippedHorizontal ? (1 - Tileset.CORNERS[i][j].y) : Tileset.CORNERS[i][j].y;
+						signY = isFlippedVertical ? (1 - Tileset.CORNERS[i][j].x) : Tileset.CORNERS[i][j].x;
 					}
 				}
 				else {
-					signX = isFlippedHorizontal ? (1 - corner.x) : corner.x;
-					signY = isFlippedVertical ? (1 - corner.y) : corner.y;
+					signX = isFlippedHorizontal ? (1 - Tileset.CORNERS[i][j].x) : Tileset.CORNERS[i][j].x;
+					signY = isFlippedVertical ? (1 - Tileset.CORNERS[i][j].y) : Tileset.CORNERS[i][j].y;
 				}
 
 				corner.x = tile.uv.x + tile.size.x * signX;
@@ -84,6 +102,8 @@ export default class Tileset {
 			});
 		});
 
-		return new THREE.Mesh(geometry, tile.material);
+		mesh.geometry.uvsNeedUpdate = true;
+
+		return mesh;
 	}
 }

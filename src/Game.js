@@ -51,22 +51,17 @@ export default class Game {
 
 	update = () => {
 		this.stats.begin();
+		const delta = this.clock.getDelta() * 1000;
+		const elapsed = this.clock.getElapsedTime() * 1000;
 
 		if (this.currentLevel) {
-			this.currentLevel.update(state.delta, state.elapsed);
+			this.currentLevel.update(delta, elapsed);
 		}
 
 		this.renderer.render(this.scene, this.camera);
 		this.stats.end();
 		
 		this.animationFrame = requestAnimationFrame(this.update);
-	}
-
-	render = () => {
-		console.log('render');
-		return (
-			<div ref={this.container} />
-		);
 	}
 }
 

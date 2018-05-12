@@ -1,5 +1,8 @@
 import * as THREE from 'three';
 
+import Door from '../entities/Door';
+import Pillar from '../entities/Pillar';
+
 export default class Billboards extends THREE.Group {
 	constructor(game, map, definition) {
 		super();
@@ -12,28 +15,41 @@ export default class Billboards extends THREE.Group {
 		const tileheight = this.map.definition.tileheight;
 
 		definition.objects.forEach(object => {
-			const tile = this.map.tileset.createTile(object.gid);
-			const x = object.x / tilewidth + 0.5;
-			const y = object.y / tileheight - 0.5;
-
-			const color = this.map.lights.getColor(Math.floor(x), Math.floor(y));
-			
-			tile.geometry.faces.forEach(face => face.color = color);
-			tile.scale.set(object.width / tilewidth, object.height / tileheight, 1);
-			tile.position.set(x, object.height / tileheight / 2, y);
-			tile.definition = object;
-
-			this.add(tile);
+			if (object.type === 'door') {
+				this.add(new Door(game, map, object));
+			}
+			else if (object.type === 'pillar') {
+				this.add(new Pillar(game, map, object));
+			}
+			else {
+				const tile = this.map.tileset.createTile(object.gid);
+				const x = object.x / tilewidth + 0.5;
+				const y = object.y / tileheight - 0.5;
+	
+				const color = this.map.lights.getColor(Math.floor(x), Math.floor(y));
+				
+				tile.geometry.faces.forEach(face => face.color = color);
+				tile.scale.set(object.width / tilewidth, object.height / tileheight, 1);
+				tile.position.set(x, object.height / tileheight / 2, y);
+				tile.definition = object;
+	
+				this.add(tile);
+			}
 		});
 	}
 
-	update() {
+	update(delta, elapsed) {
 		const camera = this.game.camera;
 
 		const tilewidth = this.map.definition.tilewidth;
 		const tileheight = this.map.definition.tileheight;
 		
 		this.children.forEach((child, i) => {
+			if (child.update) {
+				child.update(delta, elapsed);
+				return;
+			}
+
 			const look = new THREE.Vector3(0, camera.position.y, 0);
 			look.y -= child.position.y;
 			look.sub(camera.position).multiplyScalar(-1);
@@ -52,16 +68,20 @@ export default class Billboards extends THREE.Group {
 				const y = child.definition.y / tileheight - 0.5;
 				const color = this.map.lights.getColor(Math.floor(x), Math.floor(y));
 
+				let gid = 353;
+				if (distance < 3) {
+					gid = 354;
+				}
+				if (distance < 2.5) {
+					gid = 355;
+				}
 				if (distance < 2) {
-					const replacement = this.map.tileset.createTile(354);
-					child.geometry = replacement.geometry;
-					child.geometry.faces.forEach(face => face.color = color);
+					gid = 356;
 				}
-				else {
-					const replacement = this.map.tileset.createTile(353);
-					child.geometry = replacement.geometry;
-					child.geometry.faces.forEach(face => face.color = color);
-				}
+
+				const replacement = this.map.tileset.createTile(gid);
+				child.geometry = replacement.geometry;
+				child.geometry.faces.forEach(face => face.color = color);
 			}
 		});
 	}
