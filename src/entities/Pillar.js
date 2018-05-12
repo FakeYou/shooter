@@ -13,7 +13,7 @@ export default class Pillar extends Entity {
 	constructor(game, map, definition) {
 		super(game, map, definition, Pillar.config);
 
-		this.animation = this.config.animations.flame;
+		this.animation = this.config.animations.flame.clone();
 		this.animation.start();
 	}
 }

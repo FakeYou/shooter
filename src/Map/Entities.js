@@ -3,6 +3,7 @@ import * as THREE from 'three';
 import Entity from '../entities/Entity';
 import Door from '../entities/Door';
 import Pillar from '../entities/Pillar';
+import Slime from '../entities/Slime';
 
 export default class Entities extends THREE.Group {
 	constructor(game, map, definition) {
@@ -20,6 +21,10 @@ export default class Entities extends THREE.Group {
 				
 				case 'pillar':
 					this.add(new Pillar(game, map, object));
+					break;
+
+				case 'slime':
+					this.add(new Slime(game, map, object));
 					break;
 
 				default:

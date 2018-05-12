@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.5" orientation="orthogonal" renderorder="right-down" width="20" height="20" tilewidth="16" tileheight="16" infinite="1" nextobjectid="84">
+<map version="1.0" tiledversion="1.1.5" orientation="orthogonal" renderorder="right-down" width="20" height="20" tilewidth="16" tileheight="16" infinite="1" nextobjectid="86">
  <tileset firstgid="1" name="dev" tilewidth="16" tileheight="16" tilecount="16" columns="4">
   <image source="../images/dev.png" width="64" height="64"/>
  </tileset>
@@ -215,12 +215,13 @@
   </object>
   <object id="71" type="pillar" gid="513" x="64" y="32" width="16" height="16"/>
   <object id="73" type="pillar" gid="513" x="64" y="0" width="16" height="16"/>
-  <object id="76" gid="558" x="128" y="64" width="8" height="8"/>
-  <object id="78" gid="558" x="144" y="48" width="8" height="8"/>
-  <object id="79" gid="554" x="112" y="-48" width="8" height="8"/>
-  <object id="80" gid="554" x="128" y="-32" width="8" height="8"/>
-  <object id="81" gid="538" x="128" y="-48" width="8" height="8"/>
-  <object id="82" gid="542" x="144" y="64" width="8" height="8"/>
+  <object id="76" type="slime" gid="558" x="80" y="0" width="8" height="8"/>
+  <object id="78" type="slime" gid="558" x="80" y="16" width="8" height="8"/>
+  <object id="79" gid="554" x="96" y="0" width="8" height="8"/>
+  <object id="80" gid="554" x="96" y="16" width="8" height="8"/>
+  <object id="81" gid="538" x="80" y="32" width="8" height="8"/>
+  <object id="82" type="slime" gid="542" x="64" y="16" width="8" height="8"/>
+  <object id="84" gid="509" x="32" y="16" width="12" height="12"/>
  </objectgroup>
  <layer name="lights" width="20" height="20" visible="0">
   <data encoding="csv">

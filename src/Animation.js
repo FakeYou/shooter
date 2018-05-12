@@ -1,7 +1,7 @@
 import { ENGINE_METHOD_DIGESTS } from "constants";
 
 export default class Animation {
-	static FRAME_DURATION = 500;
+	static FRAME_DURATION = 240;
 
 	constructor(frames, repeat) {
 		this.frame = frames[0];
@@ -34,5 +34,9 @@ export default class Animation {
 		}
 
 		this.frame = this.frames[index];
+	}
+
+	clone() {
+		return new Animation(this.frames, this.repeat);
 	}
 }

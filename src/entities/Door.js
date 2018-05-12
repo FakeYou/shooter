@@ -15,7 +15,7 @@ export default class Door extends Entity {
 	constructor(game, map, definition) {
 		super(game, map, definition, Door.config);
 
-		this.animation = this.config.animations.loop;
+		this.animation = this.config.animations.loop.clone();
 		this.animation.start();
 	}
 
