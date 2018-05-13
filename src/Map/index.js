@@ -69,7 +69,7 @@ export default class Map extends THREE.Group {
 	}
 
 	preprocess(definition) {
-		definition.layers.forEach(layer => {
+		this.definition.layers.forEach(layer => {
 			if (layer.type === 'objectgroup') {
 				layer.objects.forEach(object => {
 					const properties = {};

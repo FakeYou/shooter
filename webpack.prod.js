@@ -7,7 +7,7 @@ const common = require('./webpack.common.js');
 module.exports = merge(common, {
 	mode: 'production',
 	output: {
-		publicPath: '/shooter',
+		publicPath: '/shooter/',
 	},
 	plugins: [
 		new UglifyJSPlugin({
