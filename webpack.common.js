@@ -49,6 +49,7 @@ module.exports = {
 		],
 	},
 	plugins: [
+		new CleanWebpackPlugin(path.resolve(__dirname, 'docs')),
 		new HtmlWebpackPlugin({
 			inject: true,
 			template: path.resolve(__dirname, 'index.html'),
