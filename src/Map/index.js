@@ -68,8 +68,8 @@ export default class Map extends THREE.Group {
 		this.entities.update(delta, elapsed);
 	}
 
-	preprocess(definition) {
-		this.definition.layers.forEach(layer => {
+	preprocess(level) {
+		level.layers.forEach(layer => {
 			if (layer.type === 'objectgroup') {
 				layer.objects.forEach(object => {
 					const properties = {};
@@ -85,6 +85,6 @@ export default class Map extends THREE.Group {
 			}
 		});
 
-		return definition;
+		return level;
 	}
 }
