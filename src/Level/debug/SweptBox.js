@@ -17,14 +17,19 @@ export default class SweptBoxLevel extends THREE.Group {
 		this.delta = new THREE.Vector3();
 		this.velocity = new THREE.Vector3(3, 0, 2.4);
 
-		this.box = new Box(new THREE.Vector3(), new THREE.Vector3(0.5, 0.01, 0.5));
+		this.box = new Box(new THREE.Vector3(0.5, 0.01, 0.5));
 
 		this.walls = [
-			new Box(new THREE.Vector3(-3, 0, 0), new THREE.Vector3(0.5, 0.01, 3)),
-			new Box(new THREE.Vector3( 3, 0, 0), new THREE.Vector3(0.5, 0.01, 3)),
-			new Box(new THREE.Vector3(0, 0 , -1.75), new THREE.Vector3(5.5, 0.01, 0.5)),
-			new Box(new THREE.Vector3(0, 0,   1.75), new THREE.Vector3(5.5, 0.01, 0.5)),
+			new Box(new THREE.Vector3(0.5, 0.01, 3)),
+			new Box(new THREE.Vector3(0.5, 0.01, 3)),
+			new Box(new THREE.Vector3(5.5, 0.01, 0.5)),
+			new Box(new THREE.Vector3(5.5, 0.01, 0.5)),
 		]
+
+		this.walls[0].position.copy(new THREE.Vector3(-3, 0, 0));
+		this.walls[1].position.copy(new THREE.Vector3( 3, 0, 0));
+		this.walls[2].position.copy(new THREE.Vector3(0, 0, -1.75));
+		this.walls[3].position.copy(new THREE.Vector3(0, 0,  1.75));
 
 		this.box.createHelper();
 		this.walls[0].createHelper();

@@ -13,7 +13,7 @@ export default class BoxPointLevel extends THREE.Group {
 
 		this.angle = 0;
 		this.point = new Point(new THREE.Vector3(-0.25, 0, 0.2));
-		this.box = new Box(new THREE.Vector3(), new THREE.Vector3(2, 0.01, 2));
+		this.box = new Box(new THREE.Vector3(2, 0.01, 2));
 
 		this.point.createHelper();
 		this.box.createHelper();

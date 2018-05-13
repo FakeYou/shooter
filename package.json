@@ -9,11 +9,9 @@
   "sideEffects": false,
   "scripts": {
     "start": "webpack-dev-server --config webpack.dev.js",
-    "build": "webpack --config webpack.prod.js",
-    "vendor": "webpack --config webpack.vendor.js"
+    "build": "webpack --config webpack.prod.js"
   },
   "devDependencies": {
-    "autodll-webpack-plugin": "https://github.com/asfktz/autodll-webpack-plugin.git",
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.4",
     "babel-plugin-transform-class-properties": "^6.24.1",
@@ -37,6 +35,7 @@
   "dependencies": {
     "classnames": "^2.2.5",
     "javascript-state-machine": "^3.0.1",
+    "keycode-js": "^1.0.0",
     "mobx": "^4.2.0",
     "mobx-react": "^5.0.0",
     "orbit-controls-es6": "^1.0.12",

@@ -10,6 +10,7 @@ import state from './State';
 import Debug from './Debug';
 import Loader from './Loader';
 import Map from './Map';
+import Keyboard from './utils/Keyboard';
 import Playground from './Level/Playground';
 
 export default class Game {
@@ -28,6 +29,7 @@ export default class Game {
 		this.stats = new Stats();
 
 		this.loader = new Loader(this, this.init);
+		this.keyboard = new Keyboard(this);
 
 		this.renderer = new THREE.WebGLRenderer({ antialias: false });
 		this.renderer.setPixelRatio(0.5);
@@ -36,6 +38,8 @@ export default class Game {
 		domElement.appendChild(this.renderer.domElement);
 
 		this.controls = new OrbitControls(this.camera, this.renderer.domElement);
+		this.controls.enableKeys = false;
+		// this.controls.enabled = false;
 
 		this.scene.add(new THREE.AxesHelper(8));
 
@@ -51,9 +55,10 @@ export default class Game {
 
 	update = () => {
 		this.stats.begin();
-		const delta = this.clock.getDelta() * 1000;
-		const elapsed = this.clock.getElapsedTime() * 1000;
+		const delta = this.clock.getDelta()
+		const elapsed = this.clock.getElapsedTime()
 
+		
 		if (this.currentLevel) {
 			this.currentLevel.update(delta, elapsed);
 		}

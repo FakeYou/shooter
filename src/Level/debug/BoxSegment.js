@@ -13,7 +13,7 @@ export default class BoxSegmentLevel extends THREE.Group {
 
 		this.angle = 0;
 		this.segment = new Segment();
-		this.box = new Box(new THREE.Vector3(), new THREE.Vector3(1, 0.001, 1));
+		this.box = new Box(new THREE.Vector3(1, 0.001, 1));
 
 		this.segment.createHelper();
 		this.box.createHelper();

@@ -1,3 +1,4 @@
+import * as THREE from 'three';
 import { clamp } from 'lodash';
 
 import Hit from './Hit';
@@ -16,6 +17,8 @@ export default class Box {
 	}
 
 	createHelper() {
+		return null;
+
 		if (!this.helper) {
 			this.helper = new THREE.Mesh(
 				new THREE.BoxGeometry(this.size.x, this.size.y, this.size.z),
@@ -198,15 +201,24 @@ export default class Box {
 	sweepInto(colliders, delta) {
 		let nearest = new Sweep();
 
+
 		nearest.time = 1;
 		nearest.position.x = this.position.x + delta.x;
 		nearest.position.z = this.position.z + delta.z;
 
 		for (let i = 0, il = colliders.length; i < il; i++) {
+			if (colliders[i] === this) {
+				continue;
+			}
+
 			const sweep = colliders[i].sweepBox(this, delta);
 
 			if (sweep.time < nearest.time) {
 				nearest = sweep;
+			}
+
+			if (sweep.hit && nearest.hit) {
+				nearest.hit.normal.add(sweep.hit.normal);
 			}
 		}
 

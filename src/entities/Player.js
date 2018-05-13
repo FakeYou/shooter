@@ -1,38 +1,48 @@
-// import * as THREE from 'three';
+import * as THREE from 'three';
+import { KEY_W, KEY_S, KEY_D, KEY_A, KEY_RIGHT, KEY_LEFT } from 'keycode-js';
 
-// import { AABB, Point } from '../intersect';
+import Entity from './Entity';
+import Box from '../Intersect/Box';
 
-// export default class Player extends THREE.Group {
-// 	constructor(game) {
-// 		super();
+export default class Player extends Entity {
+	static SPEED = 3;
+	static TURN = 3;
 
-// 		this.game = game;
+	static config = {}
 
+	constructor(game, map, definition) {
+		super(game, map, definition, Player.config);
 
-// 		this.delta = new Point();
-// 		this.velocity = new Point(.1, .1);
-// 		this.body = new AABB(
-// 			new Point(0, 0),
-// 			new Point(0.2, 0.2)
-// 		);
+		this.body = new Box(this.position, new THREE.Vector3(0.5, 1, 0.5));
+		this.game.scene.add(this.body.createHelper());
 
-// 		this.mesh = new THREE.Mesh(
-// 			new THREE.CylinderGeometry(0.2, 0.2, 1, 8),
-// 			new THREE.MeshNormalMaterial()
-// 		);
+		this.tile.rotation.y += Math.PI;
+		this.velocity = new THREE.Vector3();
+		game.player = this;
+	}
 
-// 		this.add(this.mesh);
-// 		this.game.scene.add(this.body.getHelper());
-// 	}
+	update(delta, elapsed) {
 
-// 	update(delta, elapsed) {
-// 		this.position.x = Math.sin(elapsed / 2) * 10;
-// 		this.position.z = Math.sin(elapsed / -3) * 8;
+		const force = new THREE.Vector3();
+		this.velocity.set(0, 0, 0);
 
-// 		this.body.pos.x = this.position.x;
-// 		this.body.pos.y = this.position.z;
-// 		this.body.update();
+		force.z = Number(this.game.keyboard.isPressed(KEY_S)) - Number(this.game.keyboard.isPressed(KEY_W));
+		force.x = Number(this.game.keyboard.isPressed(KEY_D)) - Number(this.game.keyboard.isPressed(KEY_A));
 
-// 		const sweep = this.body.sweepInto(this.game.map.bodies, )
-// 	}
-// }
+		this.rotation.y -= (Number(this.game.keyboard.isPressed(KEY_RIGHT)) - Number(this.game.keyboard.isPressed(KEY_LEFT))) * delta * Player.TURN;
+
+		if (force.length() > 0) {
+			force.normalize()
+				.multiplyScalar(Player.SPEED)
+				.multiplyScalar(delta)
+				.applyAxisAngle(new THREE.Vector3(0, 1, 0), this.rotation.y);
+
+			this.velocity.add(force);
+		}
+
+		this.body.updateHelper();
+
+		this.game.camera.position.copy(this.position);
+		this.game.camera.rotation.copy(this.rotation);
+	}
+}

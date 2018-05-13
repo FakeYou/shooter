@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import { defaults, sample } from 'lodash';
 
-import Animation from '../Animation';
+import Animation from '../utils/Animation';
 
 export default class Entity extends THREE.Group {
 	static config = {

@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 
 import Entity from './Entity';
-import Animation from '../Animation';
+import Animation from '../utils/Animation';
 
 export default class Door extends Entity {
 	static config = {

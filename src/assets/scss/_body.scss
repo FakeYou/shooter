@@ -8,23 +8,10 @@ body {
 	height: 100vh;
 }
 
-#stats {
-	position: absolute;
-	top: 0;
-	left: 0;
-}
-
-.columns {
+.container {
+	background-color: #191119;
 	height: 100vh;
-
-	#game {
-		background-color: $bg-color;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-	}
-
-	#debug {
-		background-color: $bg-color-dark;
-	}
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }

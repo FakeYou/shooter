@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 
 import { randomColor } from '../helpers';
+import Box from '../Intersect/Box';
 
 export default class Collision extends THREE.Group {
 	constructor(game, map, definition) {
@@ -10,16 +11,27 @@ export default class Collision extends THREE.Group {
 		this.map = map;
 		this.definition = definition;
 		this.size = definition.width;
+		this.bodies = this.createBodies();
+	}
 
-		this.position.set(definition.x + this.size / 2, 0, definition.y + this.size / 2);
-		
-		this.add(new THREE.GridHelper(this.size, 1, 0x0, randomColor()));
-		definition.data.forEach((gid, i) => {
-			if (gid === 0) {
-				return;
-			}
+	createBodies() {
+		const bodies = [];
 
-			const offset = (this.size / 2) - 0.5;
+		this.definition.chunks.forEach((chunk) => {
+			chunk.data.forEach((tile, index) => {
+				if (tile === 0) {
+					return;
+				}
+
+				const x = chunk.x + (index % chunk.width) + 0.5;
+				const y = chunk.y + Math.floor(index / chunk.width) + 0.5;
+
+				const body = new Box(new THREE.Vector3(x, 0.5, y), new THREE.Vector3(1, 1, 1));
+				bodies.push(body);
+				this.game.scene.add(body.createHelper());
+			})
 		});
+
+		return bodies;
 	}
 }

@@ -12,8 +12,9 @@ export default class BoxBoxLevel extends THREE.Group {
 		this.game = game;
 
 		this.angle = 0;
-		this.box1 = new Box(new THREE.Vector3(), new THREE.Vector3(4, 0.01, 1));
-		this.box2 = new Box(new THREE.Vector3(1, 0, 0.7), new THREE.Vector3(1, 0.01, 1));
+		this.box1 = new Box(new THREE.Vector3(4, 0.01, 1));
+		this.box2 = new Box(new THREE.Vector3(1, 0.01, 1));
+		this.box2.position.copy(new THREE.Vector3(1, 0, 0.7))
 
 		this.box1.createHelper();
 		this.box2.createHelper();

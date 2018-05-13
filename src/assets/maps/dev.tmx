@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.5" orientation="orthogonal" renderorder="right-down" width="20" height="20" tilewidth="16" tileheight="16" infinite="1" nextobjectid="86">
+<map version="1.0" tiledversion="1.1.5" orientation="orthogonal" renderorder="right-down" width="20" height="20" tilewidth="16" tileheight="16" infinite="1" nextobjectid="89">
  <tileset firstgid="1" name="dev" tilewidth="16" tileheight="16" tilecount="16" columns="4">
   <image source="../images/dev.png" width="64" height="64"/>
  </tileset>
@@ -76,7 +76,7 @@
 </chunk>
   </data>
  </layer>
- <layer name="wall" width="20" height="20" visible="0">
+ <layer name="wall" width="20" height="20">
   <data encoding="csv">
    <chunk x="-8" y="-8" width="8" height="8">
 0,0,0,0,0,0,0,0,
@@ -204,24 +204,85 @@
 </chunk>
   </data>
  </layer>
- <layer name="collision" width="20" height="20" visible="0">
-  <data encoding="csv"/>
+ <layer name="collision" width="20" height="20">
+  <data encoding="csv">
+   <chunk x="-8" y="-8" width="8" height="8">
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,17,
+0,0,0,0,0,0,17,0
+</chunk>
+   <chunk x="0" y="-8" width="8" height="8">
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,17,17,17,17,
+0,0,0,17,0,0,0,0,
+0,0,0,17,0,0,0,0,
+17,17,0,17,0,0,17,0,
+0,0,17,17,0,0,0,0
+</chunk>
+   <chunk x="8" y="-8" width="8" height="8">
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+17,17,0,0,0,0,0,0,
+0,0,17,0,0,0,0,0,
+0,0,17,0,0,0,0,0,
+0,0,17,0,0,0,0,0,
+0,0,17,0,0,0,0,0
+</chunk>
+   <chunk x="-8" y="0" width="8" height="8">
+0,0,0,0,0,0,17,0,
+0,0,0,0,0,0,17,0,
+0,0,0,0,0,0,0,17,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0
+</chunk>
+   <chunk x="0" y="0" width="8" height="8">
+0,0,0,0,0,0,0,0,
+0,0,17,17,0,0,0,0,
+17,17,0,17,0,0,17,0,
+0,0,0,17,0,0,0,0,
+0,0,0,17,0,0,0,0,
+0,0,0,0,17,17,17,17,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0
+</chunk>
+   <chunk x="8" y="0" width="8" height="8">
+0,0,17,0,0,0,0,0,
+0,0,17,0,0,0,0,0,
+0,0,17,0,0,0,0,0,
+0,0,17,0,0,0,0,0,
+0,0,17,0,0,0,0,0,
+17,17,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0
+</chunk>
+  </data>
  </layer>
  <objectgroup name="entities">
-  <object id="69" type="door" gid="353" x="56" y="16" width="16" height="16">
+  <object id="69" type="door" gid="353" x="56.01" y="32" width="16" height="16">
    <properties>
     <property name="fixed" value="horizontal"/>
    </properties>
   </object>
-  <object id="71" type="pillar" gid="513" x="64" y="32" width="16" height="16"/>
-  <object id="73" type="pillar" gid="513" x="64" y="0" width="16" height="16"/>
-  <object id="76" type="slime" gid="558" x="80" y="0" width="8" height="8"/>
-  <object id="78" type="slime" gid="558" x="80" y="16" width="8" height="8"/>
-  <object id="79" gid="554" x="96" y="0" width="8" height="8"/>
-  <object id="80" gid="554" x="96" y="16" width="8" height="8"/>
-  <object id="81" gid="538" x="80" y="32" width="8" height="8"/>
-  <object id="82" type="slime" gid="542" x="64" y="16" width="8" height="8"/>
-  <object id="84" gid="509" x="32" y="16" width="12" height="12"/>
+  <object id="71" type="pillar" gid="513" x="64" y="32" width="12" height="16"/>
+  <object id="73" type="pillar" gid="513" x="64" y="0" width="12" height="16"/>
+  <object id="76" type="slime" gid="558" x="128" y="0" width="8" height="8"/>
+  <object id="78" type="slime" gid="558" x="128" y="16" width="8" height="8"/>
+  <object id="79" type="slime" gid="554" x="144" y="0" width="8" height="8"/>
+  <object id="80" type="slime" gid="554" x="144" y="16" width="8" height="8"/>
+  <object id="81" type="slime" gid="538" x="128" y="32" width="8" height="8"/>
+  <object id="82" type="slime" gid="542" x="112" y="16" width="8" height="8"/>
+  <object id="86" name="player" type="player" gid="579" x="-16" y="16" width="12" height="12"/>
  </objectgroup>
  <layer name="lights" width="20" height="20" visible="0">
   <data encoding="csv">

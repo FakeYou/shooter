@@ -18,7 +18,6 @@ export default class Map extends THREE.Group {
 
 		this.tileset = new Tileset(game, definition.tilesets);
 		this.queue = [];
-		this.bodies = [];
 
 		// Ensure that metadata layers (lights, collision) are processed first
 		const layers = sortBy(this.definition.layers, (layer) => {
@@ -32,9 +31,7 @@ export default class Map extends THREE.Group {
 			}
 
 			if (layer.name === 'collision') {
-				layer.chunks.forEach(chunk => {
-					this.queue.push(() => this.add(new Collision(game, this, chunk)));
-				});
+				this.collision = new Collision(game, this, layer);
 			}
 
 			if (layer.name === 'ceiling') {
