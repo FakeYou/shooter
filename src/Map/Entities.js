@@ -52,22 +52,30 @@ export default class Entities extends THREE.Group {
 
 		bodies.push(...this.map.collision.bodies)
 
-		for (let i = 0; i < this.children.length; i++) {
-			const child = this.children[i];
-
+		this.children.forEach(child => {
 			if (child.body && child.velocity) {
-				const sweep = child.body.sweepInto(bodies, child.velocity);
+				let into = bodies.filter(x => x.position.distanceTo(child.position) < 3);
+				let iterations = 0;
+				let sweep;
 
-				if (sweep.hit) {
-					if (sweep.hit.normal.x !== 0) {
-						child.velocity.x = 0;
+				do {
+					sweep = child.body.sweepInto(into, child.velocity);
+	
+					if (sweep.hit) {
+						into = into.filter(x => x !== sweep.hit.collider);
+
+						if (sweep.hit.normal.x !== 0) {
+							child.velocity.x = 0;
+						}
+						if (sweep.hit.normal.z !== 0) {
+							child.velocity.z = 0;
+						}
 					}
-					if (sweep.hit.normal.z !== 0) {
-						child.velocity.z = 0;
-					}
-				}
+
+					iterations += 1;
+				} while (iterations < 4 && sweep.hit)
 			}
-		}
+		});
 
 		this.children.forEach((child) => {
 			if (child.velocity) {

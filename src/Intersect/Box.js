@@ -17,13 +17,12 @@ export default class Box {
 	}
 
 	createHelper() {
-		return null;
-
 		if (!this.helper) {
 			this.helper = new THREE.Mesh(
 				new THREE.BoxGeometry(this.size.x, this.size.y, this.size.z),
 				new THREE.MeshBasicMaterial({ wireframe: true, color: randomColor() }),
 			);
+			this.helper.type = 'hitbox';
 		}
 
 		this.helper.position.copy(this.position);
@@ -215,10 +214,6 @@ export default class Box {
 
 			if (sweep.time < nearest.time) {
 				nearest = sweep;
-			}
-
-			if (sweep.hit && nearest.hit) {
-				nearest.hit.normal.add(sweep.hit.normal);
 			}
 		}
 

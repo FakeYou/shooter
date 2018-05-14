@@ -50,6 +50,10 @@ export default class Entity extends THREE.Group {
 		else if (this.definition.properties.fixed === 'horizontal') {
 			this.rotation.y = camera.position.x > this.position.x ? Math.PI / 2 : Math.PI / -2;
 		}
+
+		const color = this.map.lights.getColor(Math.floor(this.position.x), Math.floor(this.position.z));
+		this.tile.geometry.faces.forEach(face => face.color = color);
+		this.tile.geometry.colorsNeedUpdate = true;
 	}
 
 	animate(name) {

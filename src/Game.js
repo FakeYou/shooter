@@ -6,7 +6,6 @@ import OrbitControls from 'orbit-controls-es6';
 
 import './assets/scss/main.scss';
 
-import state from './State';
 import Debug from './Debug';
 import Loader from './Loader';
 import Map from './Map';
@@ -40,6 +39,8 @@ export default class Game {
 		this.controls = new OrbitControls(this.camera, this.renderer.domElement);
 		this.controls.enableKeys = false;
 		// this.controls.enabled = false;
+
+		Debug.init(this);
 
 		this.scene.add(new THREE.AxesHelper(8));
 

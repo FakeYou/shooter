@@ -19,7 +19,7 @@ export default class Slime extends Entity {
 		this.game.scene.add(this.body.createHelper());
 
 		this.velocity = new THREE.Vector3();
-		this.speed = Math.random() / 2;
+		this.speed = Math.random() * 2;
 
 		if (Math.random() > 0.5) {
 			this.animation = this.config.animations.purpleIdle.clone();
@@ -36,7 +36,7 @@ export default class Slime extends Entity {
 		super.update(delta, elapsed);
 
 		this.velocity.x = Math.sin(this.animation.time) * this.speed * delta;
-		this.velocity.z = Math.sin(-this.animation.time) * this.speed * delta;
+		this.velocity.z = Math.sin(this.animation.time / 2) * this.speed * delta;
 
 		this.body.updateHelper();
 	}
