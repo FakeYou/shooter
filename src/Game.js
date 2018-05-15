@@ -38,7 +38,7 @@ export default class Game {
 
 		this.controls = new OrbitControls(this.camera, this.renderer.domElement);
 		this.controls.enableKeys = false;
-		// this.controls.enabled = false;
+		this.controls.enabled = false;
 
 		Debug.init(this);
 

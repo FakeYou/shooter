@@ -23,6 +23,7 @@ export default class Box {
 				new THREE.MeshBasicMaterial({ wireframe: true, color: randomColor() }),
 			);
 			this.helper.type = 'hitbox';
+			this.helper.visible = false;
 		}
 
 		this.helper.position.copy(this.position);

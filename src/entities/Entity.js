@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import { defaults, sample } from 'lodash';
 
 import Animation from '../utils/Animation';
+import Debug from '../Debug';
 
 export default class Entity extends THREE.Group {
 	static config = {
@@ -25,6 +26,12 @@ export default class Entity extends THREE.Group {
 		const y = definition.y / this.tileheight - 0.5;
 
 		const color = this.map.lights.getColor(Math.floor(x), Math.floor(y));
+		this.color = `#${color.getHexString()}`;
+		const folder = Debug.addFolder(`${this.definition.type} - (${this.id})`);
+		folder.addColor(this, 'color').listen();
+		folder.add(this.position, 'x').step(0.1).listen();
+		folder.add(this.position, 'z').step(0.1).listen();
+		folder.add(this, 'log');
 
 		this.tile.geometry.faces.forEach(face => face.color = color);
 		this.tile.scale.set(definition.width / this.tilewidth, definition.height / this.tileheight, 1);
@@ -33,10 +40,20 @@ export default class Entity extends THREE.Group {
 		this.add(this.tile);
 	}
 
+	log = () => console.log(this);
+
 	update(delta, elapsed) {
+		this.updateAnimation(delta, elapsed);
+		this.updateBillboard(delta, elapsed);
+		this.updateColor(delta, elapsed);
+	}
+
+	updateAnimation(delta, elapsed) {
 		this.animation.update(delta, elapsed);
 		this.map.tileset.updateTile(this.tile, this.animation.frame);
+	}
 
+	updateBillboard(delta, elapsed) {
 		const camera = this.game.camera;
 
 		const look = new THREE.Vector3(0, camera.position.y, 0);
@@ -50,18 +67,13 @@ export default class Entity extends THREE.Group {
 		else if (this.definition.properties.fixed === 'horizontal') {
 			this.rotation.y = camera.position.x > this.position.x ? Math.PI / 2 : Math.PI / -2;
 		}
-
-		const color = this.map.lights.getColor(Math.floor(this.position.x), Math.floor(this.position.z));
-		this.tile.geometry.faces.forEach(face => face.color = color);
-		this.tile.geometry.colorsNeedUpdate = true;
 	}
 
-	animate(name) {
-		const animation = this.config.animations[name];
-
-		if (!animation) {
-			console.warn(`Unknown animation "${name}" for ${this.constructor.name}`);
-			return;
-		}
+	updateColor(delta, elapsed) {
+		const color = this.map.lights.getColor(Math.floor(this.position.x), Math.floor(this.position.z));
+		this.color = `#${color.getHexString()}`;
+		this.tile.geometry.faces.forEach(face => face.color = color);
+		this.tile.geometry.colorsNeedUpdate = true;
+		this.tile.geometry.elementsNeedUpdate = true;
 	}
 }

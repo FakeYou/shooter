@@ -22,7 +22,6 @@ export default class Player extends Entity {
 	}
 
 	update(delta, elapsed) {
-
 		const force = new THREE.Vector3();
 		this.velocity.set(0, 0, 0);
 
@@ -42,7 +41,9 @@ export default class Player extends Entity {
 
 		this.body.updateHelper();
 
-		this.game.camera.position.copy(this.position);
-		this.game.camera.rotation.copy(this.rotation);
+		if (!this.game.controls.enabled) {
+			this.game.camera.position.copy(this.position);
+			this.game.camera.rotation.copy(this.rotation);
+		}
 	}
 }

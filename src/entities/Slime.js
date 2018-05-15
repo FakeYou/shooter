@@ -29,7 +29,7 @@ export default class Slime extends Entity {
 		}
 
 		this.animation.start();
-		this.animation.time += Math.random() * 10000;
+		this.animation.time += Math.random() * 10000 + 1000;
 	}
 
 	update(delta, elapsed) {

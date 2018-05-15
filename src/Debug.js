@@ -7,12 +7,11 @@ export default class Debug {
 	constructor(game) {
 		this.game = game;
 
-		this.showHitbox = true;
+		this.showHitbox = false;
+		this.enableFreeCam = false;
 	}
 
 	handleShowHitbox = (showHitbox) => {
-		console.log(showHitbox);
-
 		this.game.scene.traverse(child => {
 			if (child.type === 'hitbox') {
 				child.visible = showHitbox;
@@ -22,16 +21,39 @@ export default class Debug {
 		this.showHitbox = showHitbox;
 	}
 
+	handleEnableFreeCam = (enableFreeCam) => {
+		this.game.controls.enabled = enableFreeCam;
+
+		if (enableFreeCam) {
+			this.game.controls.target.copy(this.game.camera.position);
+			this.game.camera.position.y += 3;
+			this.game.camera.translateZ(3);
+			this.game.controls.update();
+		}
+
+		this.enableFreeCam = enableFreeCam;
+	}
+
 	static init(game) {
 		const debug = new Debug(game);
 		Debug.gui = new dat.GUI();
 
-		console.log(debug);
-
 		Debug.gui.add(debug, 'showHitbox').onChange(debug.handleShowHitbox);
+		Debug.gui.add(debug, 'enableFreeCam').onChange(debug.handleEnableFreeCam);
+
+		debug.handleShowHitbox(this.showHitbox);
+		debug.handleEnableFreeCam(this.enableFreeCam);
 	}
 
 	static add(...args) {
-		Debug.gui.add(...args);
+		return Debug.gui.add(...args);
+	}
+
+	static addFolder(...args) {
+		return Debug.gui.addFolder(...args);
+	}
+
+	static addColor(...args) {
+		return Debug.gui.addColor(...args);
 	}
 }
