@@ -772,6 +772,30 @@
                  "width":10,
                  "x":320,
                  "y":-32
+                }, 
+                {
+                 "gid":601,
+                 "height":16,
+                 "id":118,
+                 "name":"",
+                 "rotation":0,
+                 "type":"skeleton",
+                 "visible":true,
+                 "width":16,
+                 "x":272,
+                 "y":-32
+                }, 
+                {
+                 "gid":633,
+                 "height":24,
+                 "id":119,
+                 "name":"",
+                 "rotation":0,
+                 "type":"orc",
+                 "visible":true,
+                 "width":24,
+                 "x":272,
+                 "y":0
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -890,7 +914,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":118,
+ "nextobjectid":121,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.1.5",
@@ -947,6 +971,32 @@
          "tilecount":256,
          "tileheight":16,
          "tilewidth":16
+        }, 
+        {
+         "columns":8,
+         "firstgid":601,
+         "image":"..\/images\/skeleton.png",
+         "imageheight":128,
+         "imagewidth":256,
+         "margin":0,
+         "name":"skeleton",
+         "spacing":0,
+         "tilecount":32,
+         "tileheight":32,
+         "tilewidth":32
+        }, 
+        {
+         "columns":4,
+         "firstgid":633,
+         "image":"..\/images\/orc.png",
+         "imageheight":528,
+         "imagewidth":192,
+         "margin":0,
+         "name":"orc",
+         "spacing":0,
+         "tilecount":44,
+         "tileheight":48,
+         "tilewidth":48
         }],
  "tilewidth":16,
  "type":"map",

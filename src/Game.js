@@ -7,6 +7,7 @@ import OrbitControls from 'orbit-controls-es6';
 import './assets/scss/main.scss';
 
 import Debug from './Debug';
+import Inspector from './Inspector';
 import Loader from './Loader';
 import Map from './Map';
 import Keyboard from './utils/Keyboard';
@@ -24,6 +25,8 @@ export default class Game {
 		this.camera.position.set(4, 4, 4);
 		this.camera.lookAt(new THREE.Vector3());
 
+		this.player = this.camera;
+
 		this.clock = new THREE.Clock(true);
 		this.stats = new Stats();
 
@@ -40,7 +43,7 @@ export default class Game {
 		this.controls.enableKeys = false;
 		this.controls.enabled = false;
 
-		Debug.init(this);
+		this.inspector = new Inspector(this, document.querySelector('.inspector'));
 
 		this.scene.add(new THREE.AxesHelper(8));
 
@@ -59,14 +62,15 @@ export default class Game {
 		const delta = this.clock.getDelta()
 		const elapsed = this.clock.getElapsedTime()
 
-		
 		if (this.currentLevel) {
 			this.currentLevel.update(delta, elapsed);
 		}
 
 		this.renderer.render(this.scene, this.camera);
 		this.stats.end();
-		
+
+		this.inspector.update(delta, elapsed);
+
 		this.animationFrame = requestAnimationFrame(this.update);
 	}
 }

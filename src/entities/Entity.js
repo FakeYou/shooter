@@ -16,6 +16,11 @@ export default class Entity extends THREE.Group {
 		this.map = map;
 		this.definition = definition;
 		this.config = defaults(config, Entity.config);
+
+		Object.keys(this.config.animations).forEach(anim => {
+			this.config.animations[anim] = this.config.animations[anim].clone();
+		});
+
 		this.animation = new Animation([definition.gid], false);
 
 		this.tilewidth = this.map.definition.tilewidth;
@@ -26,12 +31,6 @@ export default class Entity extends THREE.Group {
 		const y = definition.y / this.tileheight - 0.5;
 
 		const color = this.map.lights.getColor(Math.floor(x), Math.floor(y));
-		this.color = `#${color.getHexString()}`;
-		const folder = Debug.addFolder(`${this.definition.type} - (${this.id})`);
-		folder.addColor(this, 'color').listen();
-		folder.add(this.position, 'x').step(0.1).listen();
-		folder.add(this.position, 'z').step(0.1).listen();
-		folder.add(this, 'log');
 
 		this.tile.geometry.faces.forEach(face => face.color = color);
 		this.tile.scale.set(definition.width / this.tilewidth, definition.height / this.tileheight, 1);
@@ -71,7 +70,6 @@ export default class Entity extends THREE.Group {
 
 	updateColor(delta, elapsed) {
 		const color = this.map.lights.getColor(Math.floor(this.position.x), Math.floor(this.position.z));
-		this.color = `#${color.getHexString()}`;
 		this.tile.geometry.faces.forEach(face => face.color = color);
 		this.tile.geometry.colorsNeedUpdate = true;
 		this.tile.geometry.elementsNeedUpdate = true;

@@ -2,8 +2,10 @@ import * as THREE from 'three';
 
 import Entity from '../entities/Entity';
 import Door from '../entities/Door';
+import Orc from '../entities/Orc';
 import Pillar from '../entities/Pillar';
 import Player from '../entities/Player';
+import Skeleton from '../entities/Skeleton';
 import Slime from '../entities/Slime';
 
 export default class Entities extends THREE.Group {
@@ -23,9 +25,19 @@ export default class Entities extends THREE.Group {
 				case 'door':
 					this.add(new Door(game, map, object));
 					break;
+
+				case 'orc':
+					this.add(new Orc(game, map, object));
+					break;
 				
 				case 'pillar':
 					this.add(new Pillar(game, map, object));
+					break;
+
+				case 'skeleton':
+					const skeleton = new Skeleton(game, map, object);
+					this.game.inspector.inspect(skeleton);
+					this.add(skeleton);
 					break;
 
 				case 'slime':

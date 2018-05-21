@@ -6,12 +6,34 @@ body, html {
 
 body {
 	height: 100vh;
+	display: flex;
+	flex-direction: row;
 }
 
 .container {
 	background-color: #191119;
 	height: 100vh;
+	width: 70vw;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 }
+
+.inspector {
+	background-color: #F3F5F8;
+	width: 30vw;
+
+	.vector3 {
+		input, span {
+			border-radius: 0;
+			border-color: #e6eaf5;
+		}
+
+		.column:not(:last-child) {
+			*:last-child {
+				border-right: 0;
+			}
+		}
+	}
+}
+

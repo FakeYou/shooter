@@ -24,6 +24,8 @@ export default class Loader extends THREE.LoadingManager {
 		this.loadJson('map-playground', assets.maps.playground);
 		this.loadTexture('tileset-dev', assets.images.dev);
 		this.loadTexture('tileset-dungeon', assets.images.dungeon);
+		this.loadTexture('tileset-skeleton', assets.images.skeleton);
+		this.loadTexture('tileset-orc', assets.images.orc);
 		this.loadTexture('tileset-collision', assets.images.collision);
 		this.loadTexture('tileset-lights', assets.images.lights);
 	}

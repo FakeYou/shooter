@@ -34,15 +34,22 @@ export default class Debug {
 		this.enableFreeCam = enableFreeCam;
 	}
 
+	export = () => {
+		
+	}
+
 	static init(game) {
 		const debug = new Debug(game);
 		Debug.gui = new dat.GUI();
 
 		Debug.gui.add(debug, 'showHitbox').onChange(debug.handleShowHitbox);
 		Debug.gui.add(debug, 'enableFreeCam').onChange(debug.handleEnableFreeCam);
+		Debug.gui.add(debug, 'export');
 
 		debug.handleShowHitbox(this.showHitbox);
 		debug.handleEnableFreeCam(this.enableFreeCam);
+
+		Debug.gui.close();
 	}
 
 	static add(...args) {

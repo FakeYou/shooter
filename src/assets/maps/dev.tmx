@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.5" orientation="orthogonal" renderorder="right-down" width="20" height="20" tilewidth="16" tileheight="16" infinite="1" nextobjectid="118">
+<map version="1.0" tiledversion="1.1.5" orientation="orthogonal" renderorder="right-down" width="20" height="20" tilewidth="16" tileheight="16" infinite="1" nextobjectid="121">
  <tileset firstgid="1" name="dev" tilewidth="16" tileheight="16" tilecount="16" columns="4">
   <image source="../images/dev.png" width="64" height="64"/>
  </tileset>
@@ -11,6 +11,12 @@
  </tileset>
  <tileset firstgid="345" name="dungeon" tilewidth="16" tileheight="16" tilecount="256" columns="16">
   <image source="../images/dungeon.png" width="256" height="256"/>
+ </tileset>
+ <tileset firstgid="601" name="skeleton" tilewidth="32" tileheight="32" tilecount="32" columns="8">
+  <image source="../images/skeleton.png" width="256" height="128"/>
+ </tileset>
+ <tileset firstgid="633" name="orc" tilewidth="48" tileheight="48" tilecount="44" columns="4">
+  <image source="../images/orc.png" width="192" height="528"/>
  </tileset>
  <layer name="floor" width="20" height="20">
   <data encoding="csv">
@@ -597,7 +603,7 @@
   <object id="71" type="pillar" gid="513" x="64" y="32" width="12" height="16"/>
   <object id="73" type="pillar" gid="513" x="64" y="0" width="12" height="16"/>
   <object id="82" type="slime" gid="542" x="80" y="-32" width="8" height="8"/>
-  <object id="91" name="player" type="player" gid="596" x="128" y="16" width="16" height="16"/>
+  <object id="91" name="player" type="player" gid="596" x="288" y="32" width="16" height="16"/>
   <object id="94" type="slime" gid="542" x="128" y="48" width="8" height="8"/>
   <object id="95" type="slime" gid="542" x="64" y="80" width="8" height="8"/>
   <object id="96" type="slime" gid="542" x="128" y="-48" width="8" height="8"/>
@@ -623,6 +629,8 @@
   <object id="114" gid="560" x="256" y="176" width="8" height="8"/>
   <object id="115" gid="561" x="304" y="-96" width="8" height="8"/>
   <object id="116" gid="551" x="320" y="-32" width="10" height="10"/>
+  <object id="118" type="skeleton" gid="601" x="272" y="-32" width="16" height="16"/>
+  <object id="119" type="orc" gid="633" x="272" y="0" width="24" height="24"/>
  </objectgroup>
  <layer name="lights" width="20" height="20" visible="0">
   <data encoding="csv">

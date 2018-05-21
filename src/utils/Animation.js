@@ -1,7 +1,7 @@
 import { ENGINE_METHOD_DIGESTS } from "constants";
 
 export default class Animation {
-	static FRAME_DURATION = 1/4;
+	static FRAME_DURATION = 1/8;
 
 	constructor(frames, repeat) {
 		this.frame = frames[0];
