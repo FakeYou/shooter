@@ -10,7 +10,7 @@ import Debug from './Debug';
 import Inspector from './Inspector';
 import Loader from './Loader';
 import Map from './Map';
-import Keyboard from './utils/Keyboard';
+import Input from './utils/Input';
 import Playground from './Level/Playground';
 
 export default class Game {
@@ -30,14 +30,14 @@ export default class Game {
 		this.clock = new THREE.Clock(true);
 		this.stats = new Stats();
 
-		this.loader = new Loader(this, this.init);
-		this.keyboard = new Keyboard(this);
-
 		this.renderer = new THREE.WebGLRenderer({ antialias: false });
 		this.renderer.setPixelRatio(0.5);
 		this.renderer.setSize(this.width, this.height);
 		this.renderer.setClearColor(0xEAE0E2);
 		domElement.appendChild(this.renderer.domElement);
+
+		this.loader = new Loader(this, this.init);
+		this.input = new Input(this);
 
 		this.controls = new OrbitControls(this.camera, this.renderer.domElement);
 		this.controls.enableKeys = false;

@@ -19,6 +19,10 @@ export default class Map extends THREE.Group {
 		this.tileset = new Tileset(game, definition.tilesets);
 		this.queue = [];
 
+		this.create();
+	}
+
+	create() {
 		// Ensure that metadata layers (lights, collision) are processed first
 		const layers = sortBy(this.definition.layers, (layer) => {
 			const index = ['collision', 'lights'].indexOf(layer.name);
@@ -87,4 +91,18 @@ export default class Map extends THREE.Group {
 
 		return level;
 	}
+}
+
+if (module.hot) {
+	module.hot.accept('./Entities', () => {
+		const Entities = require('./Entities').default;
+
+		const map = window.game.currentLevel.map;
+		const entities = map.entities;
+		map.remove(map.entities);
+
+		map.entities = new Entities(entities.game, entities.map, entities.definition);
+		map.add(map.entities);
+		console.log(map.entities);
+	});
 }

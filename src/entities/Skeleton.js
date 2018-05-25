@@ -41,7 +41,7 @@ export default class Skeleton extends Entity {
 				this.animation = this.config.animations.walk.clone();
 				this.animation.start();
 
-				this.velocity.set(0.008, 0, 0);
+				this.velocity.set(0.0008, 0, 0);
 				this.velocity.applyAxisAngle(new THREE.Vector3(0, 1, 0), Math.random() * Math.PI * 2);
 			}
 			else {

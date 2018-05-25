@@ -12,6 +12,8 @@ export default class Slime extends Entity {
 		},
 	}
 
+	static id = 1;
+
 	constructor(game, map, definition) {
 		super(game, map, definition, Slime.config);
 
@@ -30,6 +32,11 @@ export default class Slime extends Entity {
 
 		this.animation.start();
 		this.animation.time += Math.random() * 10000 + 1000;
+	}
+
+	copy(instance) {
+		super.copy(instance);
+		this.speed = instance.speed;
 	}
 
 	update(delta, elapsed) {

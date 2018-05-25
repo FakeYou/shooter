@@ -5,8 +5,7 @@ import Door from '../entities/Door';
 import Orc from '../entities/Orc';
 import Pillar from '../entities/Pillar';
 import Player from '../entities/Player';
-import Skeleton from '../entities/Skeleton';
-import Slime from '../entities/Slime';
+import { Slime, Skeleton } from '../entities';
 
 export default class Entities extends THREE.Group {
 	constructor(game, map, definition) {
@@ -16,36 +15,38 @@ export default class Entities extends THREE.Group {
 		this.map = map;
 		this.definition = definition;
 
-		definition.objects.forEach(object => {
+		this.create();
+	}
+
+	create() {
+		this.definition.objects.forEach(object => {
 			switch (object.type) {
 				case 'player':
-					this.add(new Player(game, map, object));
+					this.add(new Player(this.game, this.map, object));
 					break;
 
 				case 'door':
-					this.add(new Door(game, map, object));
+					this.add(new Door(this.game, this.map, object));
 					break;
 
 				case 'orc':
-					this.add(new Orc(game, map, object));
+					this.add(new Orc(this.game, this.map, object));
 					break;
 				
 				case 'pillar':
-					this.add(new Pillar(game, map, object));
+					this.add(new Pillar(this.game, this.map, object));
 					break;
 
 				case 'skeleton':
-					const skeleton = new Skeleton(game, map, object);
-					this.game.inspector.inspect(skeleton);
-					this.add(skeleton);
+					this.add(new Skeleton(this.game, this.map, object));
 					break;
 
 				case 'slime':
-					this.add(new Slime(game, map, object));
+					this.add(new Slime(this.game, this.map, object));
 					break;
 
 				default:
-					this.add(new Entity(game, map, object));
+					this.add(new Entity(this.game, this.map, object));
 					break;
 			}
 		});
@@ -95,4 +96,33 @@ export default class Entities extends THREE.Group {
 			}
 		})
 	}
+}
+
+
+if (module.hot) {
+	module.hot.accept('../entities/', (module) => {
+		console.log('Replacing entities', module);
+
+		const Entities = require('../entities');
+		const types = Object.keys(Entities);
+
+		const container = window.game.currentLevel.map.entities;
+		const deletion = [];
+		const addition = [];
+
+		container.children.forEach((child) => {
+			if (types.includes(child.constructor.name)) {
+				const nextChild = new Entities[child.constructor.name](child.game, child.map, child.definition);
+				
+				console.log(`Replacing ${child.constructor.name} | ${child.id} => ${nextChild.id}`);
+
+				nextChild.copy(child)
+				deletion.push(child);
+				addition.push(nextChild);
+			}
+		});
+
+		deletion.forEach(del => container.remove(del));
+		addition.forEach(add => container.add(add));
+	});
 }

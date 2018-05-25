@@ -2,7 +2,6 @@ import * as THREE from 'three';
 import { defaults, sample } from 'lodash';
 
 import Animation from '../utils/Animation';
-import Debug from '../Debug';
 
 export default class Entity extends THREE.Group {
 	static config = {
@@ -16,6 +15,7 @@ export default class Entity extends THREE.Group {
 		this.map = map;
 		this.definition = definition;
 		this.config = defaults(config, Entity.config);
+		this.name = this.constructor.name;
 
 		Object.keys(this.config.animations).forEach(anim => {
 			this.config.animations[anim] = this.config.animations[anim].clone();
@@ -40,6 +40,12 @@ export default class Entity extends THREE.Group {
 	}
 
 	log = () => console.log(this);
+
+	copy(instance) {
+		this.position.copy(instance.position);
+		this.rotation.copy(instance.rotation);
+		this.velocity.copy(instance.velocity);
+	}
 
 	update(delta, elapsed) {
 		this.updateAnimation(delta, elapsed);

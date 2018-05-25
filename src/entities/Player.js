@@ -25,10 +25,10 @@ export default class Player extends Entity {
 		const force = new THREE.Vector3();
 		this.velocity.set(0, 0, 0);
 
-		force.z = Number(this.game.keyboard.isPressed(KEY_S)) - Number(this.game.keyboard.isPressed(KEY_W));
-		force.x = Number(this.game.keyboard.isPressed(KEY_D)) - Number(this.game.keyboard.isPressed(KEY_A));
+		force.z = Number(this.game.input.isPressed(KEY_S)) - Number(this.game.input.isPressed(KEY_W));
+		force.x = Number(this.game.input.isPressed(KEY_D)) - Number(this.game.input.isPressed(KEY_A));
 
-		this.rotation.y -= (Number(this.game.keyboard.isPressed(KEY_RIGHT)) - Number(this.game.keyboard.isPressed(KEY_LEFT))) * delta * Player.TURN;
+		this.rotation.y -= (Number(this.game.input.isPressed(KEY_RIGHT)) - Number(this.game.input.isPressed(KEY_LEFT))) * delta * Player.TURN;
 
 		if (force.length() > 0) {
 			force.normalize()
