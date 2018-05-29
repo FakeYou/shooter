@@ -1,8 +1,11 @@
+import React from 'react';
 import * as THREE from 'three';
 
 import Entity from './Entity';
 import Animation from '../utils/Animation';
 import Box from '../Intersect/Box';
+
+import Vector3 from '../Inspector/Vector3';
 
 export default class Skeleton extends Entity {
 	static config = {
@@ -53,5 +56,13 @@ export default class Skeleton extends Entity {
 				this.velocity.z = 0;
 			}
 		}
+	}
+
+	inspect = () => {
+		return (
+			<div>
+				<Vector3 label="Rotation" type="rotation" vector3={this.rotation} />
+			</div>
+		);
 	}
 }

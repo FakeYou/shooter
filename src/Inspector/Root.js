@@ -37,8 +37,10 @@ export default class Root extends PureComponent {
 					<Fragment>
 						<h6>{inspect.name || 'unknown'}</h6>
 						<Vector3 label="Position" type="position" vector3={inspect.position} />
-						<Vector3 label="Rotation" type="rotation" vector3={inspect.rotation} />
+						<Vector3 label="Rotation" tdype="rotation" vector3={inspect.rotation} />
 						<Vector3 label="Scale" type="scale" vector3={inspect.scale} />
+						<div className="py-1" />
+						{!!inspect.inspect && inspect.inspect()}
 					</Fragment>
 				}
 			</div>

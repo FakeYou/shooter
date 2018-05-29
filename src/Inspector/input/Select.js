@@ -1,18 +1,17 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
-export default class Number extends PureComponent {
+export default class Select extends PureComponent {
 	static propTypes = {
 		name: PropTypes.string.isRequired,
-		value: PropTypes.number,
+		selected: PropTypes.string,
+		options: PropTypes.arrayOf(PropTypes.string).isRequired,
 		onChange: PropTypes.func,
-		addon: PropTypes.string,
 	}
 
 	static defaultProps = {
 		value: 1,
 		onChange: null,
-		addon: null,
 	}
 	
 	static getDerivedStateFromProps(nextProps, prevState) {
@@ -35,7 +34,7 @@ export default class Number extends PureComponent {
 
 		this.setState({ value });
 
-		this.props.onChange && this.props.onChange(e, parseFloat(value));
+		this.props.onChange && this.props.onChange(e, value);
 	}
 
 	handleFocus = (e) => {
@@ -47,21 +46,27 @@ export default class Number extends PureComponent {
 	}
 
 	render() {
-		const { name, addon } = this.props;
+		const { name, options, addon } = this.props;
 		const { value } = this.state;
 
 		return (
-			<div className="input-group">
-				<input
-					className="form-input input-sm"
-					name={name}
-					type="text"
-					value={value}
-					onChange={this.handleChange}
-					onFocus={this.handleFocus}
-					onBlur={this.handleBlur}
-				/>
-				{!!addon && <span class="input-group-addon addon-sm">{addon}</span>}
+			<div className="columns col-gapless my-1 vector3">
+				<div className="column col-3">
+					<label className="form-label label-sm">{name}</label>
+				</div>
+
+				<div className="column col-9">
+					<select
+						className="form-select select-sm"
+						name={name}
+						value={value}
+						onChange={this.handleChange}
+						onFocus={this.handleFocus}
+						onBlur={this.handleBlur}
+					>
+						{options.map(option => <option value={option}>{option}</option>)}
+					</select>
+				</div>
 			</div>
 		)
 	}

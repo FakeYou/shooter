@@ -30,7 +30,7 @@ export default class Animation {
 			index = index % this.frames.length;
 		}
 		else {
-			index = Math.max(index, this.frames.length - 1);
+			index = Math.min(index, this.frames.length - 1);
 		}
 
 		this.frame = this.frames[index];

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import Number from './input/Number';
+import Select from './input/Select';
 
 export default class Vector3 extends Component {
 	static propTypes = {
